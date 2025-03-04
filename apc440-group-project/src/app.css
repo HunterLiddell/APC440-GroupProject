@@ -1,6 +1,7 @@
 /* Bubblegum Sans - Headers */
 @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
 
+/* Poppings - a, span, p */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root {
@@ -14,6 +15,7 @@ h4,
 h5,
 h6 {
 	font-family: 'Bubblegum Sans', cursive;
+	letter-spacing: 1px;
 	color: var(--primary-color);
 }
 
