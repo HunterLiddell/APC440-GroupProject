@@ -1,0 +1,38 @@
+/* Bubblegum Sans - Headers */
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+	--primary-color: #8a522d;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Bubblegum Sans', cursive;
+	color: var(--primary-color);
+}
+
+a {
+	color: var(--primary-color);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+a,
+span,
+p {
+	font-family: 'Poppins', sans-serif;
+}

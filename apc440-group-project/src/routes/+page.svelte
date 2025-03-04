@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+
+</script>
+
+<main>
+    <section>
+        <h2 class="tagline">Where Furry Bakers Create Pawesome Treats</h2>
+        <img src="/bakery-banner.png" alt="Paws & Pastries Bakery" width="80%">
+    </section>
+</main>
