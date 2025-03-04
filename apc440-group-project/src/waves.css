@@ -1,0 +1,56 @@
+@keyframes waveAnimation {
+		0% {
+			clip-path: polygon(
+				0% 25%,
+				20% 40%,
+				40% 30%,
+				60% 40%,
+				80% 25%,
+				100% 35%,
+				100% 100%,
+				0% 100%
+			);
+		}
+		50% {
+			clip-path: polygon(
+				0% 30%,
+				20% 45%,
+				40% 35%,
+				60% 45%,
+				80% 30%,
+				100% 40%,
+				100% 100%,
+				0% 100%
+			);
+		}
+		100% {
+			clip-path: polygon(
+				0% 25%,
+				20% 40%,
+				40% 30%,
+				60% 40%,
+				80% 25%,
+				100% 35%,
+				100% 100%,
+				0% 100%
+			);
+		}
+	}
+
+	.waves {
+		background-color: bisque;
+		padding: 40px 0;
+		position: relative;
+		/* rotate: 180deg; */
+		clip-path: polygon(
+			0% 25%,
+			20% 40%,
+			40% 30%,
+			60% 40%,
+			80% 25%,
+			100% 35%,
+			100% 100%,
+			0% 100%
+		);
+		animation: waveAnimation 4s infinite ease-in-out;
+	}

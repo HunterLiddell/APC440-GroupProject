@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { ShoppingBag } from 'lucide-svelte';
 	import '../app.css';
+	import '../waves.css';
 	import '../tailwind.css';
 
 	let { children }: { children: Snippet } = $props();

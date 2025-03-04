@@ -20,18 +20,26 @@
 			bio: 'Rolls out the fluffiest dough.',
 			specialty: 'Almond Arffs',
 			image: 'alfred-dog.webp'
+		},
+		{
+			name: 'Pawl',
+			role: 'Cake Decorator Extraordinaire',
+			bio: "Crafts 'paw-sitively' stunning cakes.",
+			specialty: 'Furrosted Cakes',
+			image: 'pawl-dog.webp'
 		}
 	];
 </script>
 
-<section class="hero">
+<!-- <section class="hero">
 	<h1>Meet the Bakers</h1>
 	<p>Get to know the talented paws behind our delicious treats!</p>
-</section>
+</section> -->
 
-<div class="wave-section"></div>
+<div class="waves" style="rotate: 180deg;"></div>
 
-<section class="baker-grid">
+<!-- <section class="flex flex-row items-center justify-center w-full"> -->
+<div class="baker-grid">
 	{#each bakers as baker}
 		<div class="baker-card">
 			<img src={baker.image} alt={baker.name} />
@@ -41,7 +49,8 @@
 			<p><em>Specialty: {baker.specialty}</em></p>
 		</div>
 	{/each}
-</section>
+</div>
+<!-- </section> -->
 
 <section class="cta">
 	<a href="/menu" class="button">Visit the Bakery</a>
@@ -57,9 +66,18 @@
 
 	.baker-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, 400px);
+		align-self: center;
 		gap: 20px;
 		padding: 40px;
+		justify-content: center;
+
+		@media (max-width: 1760px) {
+			grid-template-columns: repeat(2, minmax(300px, 600px));
+		}
+		@media (max-width: 680px) {
+			grid-template-columns: repeat(1, 300px);
+		}
 	}
 
 	.baker-card {
@@ -76,6 +94,16 @@
 		border-radius: 50%;
 		object-fit: cover;
 		margin-bottom: 10px;
+
+		@media (max-width: 880px) {
+			width: 225px;
+			height: 225px;
+		}
+
+		@media (max-width: 600px) {
+			width: 150px;
+			height: 150px;
+		}
 	}
 
 	.cta {
@@ -95,62 +123,5 @@
 
 	.button:hover {
 		background: #d97941;
-	}
-
-	@keyframes waveAnimation {
-		0% {
-			clip-path: polygon(
-				0% 25%,
-				20% 40%,
-				40% 30%,
-				60% 40%,
-				80% 25%,
-				100% 35%,
-				100% 100%,
-				0% 100%
-			);
-		}
-		50% {
-			clip-path: polygon(
-				0% 30%,
-				20% 45%,
-				40% 35%,
-				60% 45%,
-				80% 30%,
-				100% 40%,
-				100% 100%,
-				0% 100%
-			);
-		}
-		100% {
-			clip-path: polygon(
-				0% 25%,
-				20% 40%,
-				40% 30%,
-				60% 40%,
-				80% 25%,
-				100% 35%,
-				100% 100%,
-				0% 100%
-			);
-		}
-	}
-
-	.wave-section {
-		background-color: bisque;
-		padding: 100px 0;
-		position: relative;
-		rotate: 180deg;
-		clip-path: polygon(
-			0% 25%,
-			20% 40%,
-			40% 30%,
-			60% 40%,
-			80% 25%,
-			100% 35%,
-			100% 100%,
-			0% 100%
-		);
-		animation: waveAnimation 4s infinite ease-in-out;
 	}
 </style>
