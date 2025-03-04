@@ -38,7 +38,7 @@ https://nodejs.org/en
 If you're using PyCharm or any fancy text editor, there's limited Svelte support baked-in, but for rendering purposes
 you should be okay.
 
-If not (for any reason), follow these steps to install the supported plugin for Svelte - These steps are for PyCharm
+If something goes wrong (for any reason), follow these steps to install the supported plugin for Svelte - These steps are for PyCharm
 
 - Note that this is for a general guideline, depending on your IDE these steps may vary such as VSCode using "Extensions"
 

@@ -1,5 +1,8 @@
-<script>
-	let bakers = [
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { fly, slide } from 'svelte/transition';
+
+	let bakers = $state([
 		{
 			name: 'Biscuit',
 			role: 'Head Pastry Chef',
@@ -28,7 +31,7 @@
 			specialty: 'Furrosted Cakes',
 			image: 'pawl-dog.webp'
 		}
-	];
+	]);
 </script>
 
 <!-- <section class="hero">
@@ -39,7 +42,7 @@
 <div class="waves" style="rotate: 180deg;"></div>
 
 <!-- <section class="flex flex-row items-center justify-center w-full"> -->
-<div class="baker-grid">
+<div class="baker-grid" in:fly={{ y: 200, duration: 1000 }}>
 	{#each bakers as baker}
 		<div class="baker-card">
 			<img src={baker.image} alt={baker.name} />
@@ -81,6 +84,7 @@
 	}
 
 	.baker-card {
+		will-change: auto;
 		background: #fff;
 		padding: 20px;
 		text-align: center;
