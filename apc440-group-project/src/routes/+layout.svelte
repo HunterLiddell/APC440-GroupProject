@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { ShoppingBag } from 'lucide-svelte';
+	import { MailIcon, MapPinIcon, PhoneIcon, ShoppingBag } from 'lucide-svelte';
 	import '../app.css';
 	import '../waves.css';
 	import '../tailwind.css';
+	import Footer from './footer.svelte';
 
 	let { children }: { children: Snippet } = $props();
 </script>
@@ -32,10 +33,8 @@
 <main>
 	{@render children()}
 </main>
-
-<footer>
-	<p>&copy; 2025 Paws & Pastries Bakery - All Rights Reserved</p>
-</footer>
+<div class="waves" style="rotate: 180deg; height: 50px;"></div>
+<Footer/>
 
 <style lang="postcss">
 	h1 {
@@ -76,5 +75,6 @@
 		padding: 20px;
 		background-color: #ff914d;
 		color: white;
+        margin-top: auto;
 	}
 </style>

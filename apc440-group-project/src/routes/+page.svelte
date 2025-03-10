@@ -1,14 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+
+    // Mounted isn't always needed, but since i'm using SSR, we need it for the first page load
+    let mounted = $state(false);
+    onMount(() => mounted = true )
 </script>
 
 <main>
 	<section>
 		<div class="flex flex-col absolute z-10 items-center justify-center h-full">
-			<h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
-			<h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
-				Where Furry Bakers Create Pawesome Treats
-			</h3>
+            {#if mounted}
+                <h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
+                <h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
+                    Where Furry Bakers Create Pawesome Treats
+                </h3>
+            {/if}
 		</div>
 		<img src="/hero3.webp" alt="Paws & Pastries Bakery" />
 	</section>
