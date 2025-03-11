@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Waves from '$lib/Waves.svelte';
+	import Waves from '$lib/ui/Waves.svelte';
 	import { fly } from 'svelte/transition';
 
 	let bakers = $state([
@@ -48,20 +48,15 @@
 		</div>
 	{/each}
 </div>
-<!-- </section> -->
 
 <section class="cta">
 	<a href="/menu" class="button">Visit the Bakery</a>
 	<a href="/behind-the-scenes" class="button">See Them in Action</a>
 </section>
 
-<style>
-	.hero {
-		text-align: center;
-		padding: 50px 20px;
-		background-color: #ffdead;
-	}
+<Waves />
 
+<style>
 	.baker-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, 400px);
@@ -105,7 +100,7 @@
 		}
 	}
 
-	.cta {
+	section {
 		text-align: center;
 		padding: 40px;
 	}

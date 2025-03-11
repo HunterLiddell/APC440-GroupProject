@@ -58,6 +58,7 @@
 
 	main {
 		margin-top: 6rem;
+		background: linear-gradient(120deg, #ffe6b318 0%, #ffc2b317 100%);
 	}
 
 	nav {

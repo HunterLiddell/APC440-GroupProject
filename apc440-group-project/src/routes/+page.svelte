@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Waves from '$lib/Waves.svelte';
+	import Waves from '$lib/ui/Waves.svelte';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 

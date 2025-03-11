@@ -1,5 +1,5 @@
 <script>
-	import { MapPin, Phone } from 'lucide-svelte';
+	import { MapPin, Phone, Mail } from 'lucide-svelte';
 </script>
 
 <footer>
@@ -14,20 +14,26 @@
 			</section>
 			<section>
 				<h3>Contact</h3>
-				<div class="contact-info">
+				<address class="contact-info">
 					<div class="contact-item">
 						<MapPin />
-						<span>123 Pawsome Street, Bakery Town</span>
+						<a
+							onclick={(e) => {
+								e.preventDefault();
+								alert('I told you.. this goes no where...');
+							}}
+							href="/this-goes-no-where-:)">123 Pawsome Street, Bakery Town</a
+						>
 					</div>
 					<div class="contact-item">
 						<Phone size={20} />
-						<span>(555) 123-4567</span>
+						<a href="tel:555-123-4567">(555) 123-4567</a>
 					</div>
 					<div class="contact-item">
-						<span class="icon">✉️</span>
-						<span>woof@pawsandpastries.com</span>
+						<Mail />
+						<a href="mailto:woof@pawsandpastries.com">woof@pawsandpastries.com</a>
 					</div>
-				</div>
+				</address>
 			</section>
 			<section>
 				<h3>Hours</h3>
@@ -49,6 +55,10 @@
 </footer>
 
 <style lang="postcss">
+	a {
+		/* Default anchor-tag color is in app.css - overwriting it here */
+		color: rgb(238, 204, 153) !important;
+	}
 	h3 {
 		font-size: 24px;
 	}
