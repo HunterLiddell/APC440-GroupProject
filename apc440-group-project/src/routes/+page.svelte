@@ -1,24 +1,27 @@
 <script lang="ts">
+	import Waves from '$lib/Waves.svelte';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-    // Mounted isn't always needed, but since i'm using SSR, we need it for the first page load
-    let mounted = $state(false);
-    onMount(() => mounted = true )
+	// Mounted isn't always needed, but since i'm using SSR, we need it for the first page load
+	let mounted = $state(false);
+	onMount(() => (mounted = true));
 </script>
 
 <main>
 	<section>
 		<div class="flex flex-col absolute z-10 items-center justify-center h-full">
-            {#if mounted}
-                <h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
-                <h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
-                    Where Furry Bakers Create Pawesome Treats
-                </h3>
-            {/if}
+			{#if mounted}
+				<h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
+				<h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
+					Where Furry Bakers Create Pawesome Treats
+				</h3>
+			{/if}
 		</div>
 		<img src="/hero3.webp" alt="Paws & Pastries Bakery" />
 	</section>
+
+	<Waves />
 </main>
 
 <style lang="postcss">
@@ -30,13 +33,6 @@
 		object-position: center;
 		opacity: 1;
 		background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0.5) 50%);
-	}
-
-	@media (max-width: 1400px) {
-		img {
-			/* scale: 1.2; */
-			/* width: 1200px; */
-		}
 	}
 
 	section {

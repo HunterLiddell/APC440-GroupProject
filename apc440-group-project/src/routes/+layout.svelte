@@ -2,7 +2,6 @@
 	import type { Snippet } from 'svelte';
 	import { MailIcon, MapPinIcon, PhoneIcon, ShoppingBag } from 'lucide-svelte';
 	import '../app.css';
-	import '../waves.css';
 	import '../tailwind.css';
 	import Footer from './footer.svelte';
 
@@ -33,8 +32,7 @@
 <main>
 	{@render children()}
 </main>
-<div class="waves" style="rotate: 180deg; height: 50px;"></div>
-<Footer/>
+<Footer />
 
 <style lang="postcss">
 	h1 {
@@ -75,6 +73,6 @@
 		padding: 20px;
 		background-color: #ff914d;
 		color: white;
-        margin-top: auto;
+		margin-top: auto;
 	}
 </style>

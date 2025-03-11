@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { fly, slide } from 'svelte/transition';
+	import Waves from '$lib/Waves.svelte';
+	import { fly } from 'svelte/transition';
 
 	let bakers = $state([
 		{
@@ -34,12 +34,7 @@
 	]);
 </script>
 
-<!-- <section class="hero">
-	<h1>Meet the Bakers</h1>
-	<p>Get to know the talented paws behind our delicious treats!</p>
-</section> -->
-
-<div class="waves" style="rotate: 180deg;"></div>
+<Waves rotate="180deg" />
 
 <!-- <section class="flex flex-row items-center justify-center w-full"> -->
 <div class="baker-grid" in:fly={{ y: 200, duration: 1000 }}>
