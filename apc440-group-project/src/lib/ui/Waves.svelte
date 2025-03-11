@@ -1,3 +1,5 @@
+<!-- Waves animation with two different waves. @component -->
+
 <script>
 	export let height = '100px'; // Allow dynamic height adjustment
 	export let rotate = '0deg';

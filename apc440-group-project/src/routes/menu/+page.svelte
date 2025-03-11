@@ -7,9 +7,17 @@
 	import { cubicInOut } from 'svelte/easing';
 	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
 
+	/** Values to filter by */
 	type FilterType = 'all' | 'cats' | 'dogs' | 'humans';
+
+	/** Actively applied filter. Default `all`*/
 	let activeFilter: FilterType = $state('all');
 
+	/**
+	 * Filtered menu items
+	 *
+	 * Determined by the user's filter selection. Default is all items
+	 */
 	let filteredItems = $derived.by(() => {
 		if (activeFilter == 'cats') return menuItems.filter((item) => item.category == 'cats');
 		if (activeFilter == 'dogs') return menuItems.filter((item) => item.category == 'dogs');
@@ -21,6 +29,7 @@
 <!-- Absolute positioned background with floating icons -->
 <MenuBackground />
 
+<!-- Title and filter options -->
 <section in:fade={{ duration: 800, easing: cubicInOut }}>
 	<h1>Our Pawesome Menu</h1>
 	<p>
@@ -30,25 +39,25 @@
 		<div class="text-center"></div>
 		<div class="button-group">
 			<Button
-				class={activeFilter === 'all' ? 'default' : 'outline'}
+				type={activeFilter === 'all' ? 'default' : 'outline'}
 				onclick={() => (activeFilter = 'all')}
 			>
 				<CakeIcon /> All Treats
 			</Button>
 			<Button
-				class={activeFilter === 'cats' ? 'default' : 'outline'}
+				type={activeFilter === 'cats' ? 'default' : 'outline'}
 				onclick={() => (activeFilter = 'cats')}
 			>
 				<CatIcon /> Cat Treats
 			</Button>
 			<Button
-				class={activeFilter === 'dogs' ? 'default' : 'outline'}
+				type={activeFilter === 'dogs' ? 'default' : 'outline'}
 				onclick={() => (activeFilter = 'dogs')}
 			>
 				<DogIcon /> Dog Treats
 			</Button>
 			<Button
-				class={activeFilter === 'humans' ? 'default' : 'outline'}
+				type={activeFilter === 'humans' ? 'default' : 'outline'}
 				onclick={() => (activeFilter = 'humans')}
 			>
 				<UserIcon /> Human Treats
@@ -57,8 +66,10 @@
 	</div>
 </section>
 
+<!-- Line break -->
 <hr />
 
+<!-- Menu items -->
 <section>
 	<div in:fly={{ y: '100px', duration: 600, delay: 100 }} class="menu-grid">
 		{#each filteredItems as item}
@@ -128,9 +139,15 @@
 		width: max-content;
 	}
 
-	@media (min-width: 600px) {
+	@media (min-width: 625px) {
 		.menu-grid {
-			grid-template-columns: repeat(1, 280px);
+			grid-template-columns: repeat(2, 280px);
+		}
+	}
+
+	@media (min-width: 950px) {
+		.menu-grid {
+			grid-template-columns: repeat(3, 280px);
 		}
 	}
 

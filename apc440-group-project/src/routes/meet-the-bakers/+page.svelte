@@ -2,6 +2,9 @@
 	import Waves from '$lib/ui/Waves.svelte';
 	import { fly } from 'svelte/transition';
 
+	/**
+	 * List of bakers and their descriptions.
+	 */
 	let bakers = $state([
 		{
 			name: 'Biscuit',
@@ -34,9 +37,10 @@
 	]);
 </script>
 
+<!-- Fun wave -->
 <Waves rotate="180deg" />
 
-<!-- <section class="flex flex-row items-center justify-center w-full"> -->
+<!-- List of baker tiles -->
 <div class="baker-grid" in:fly={{ y: 200, duration: 1000 }}>
 	{#each bakers as baker}
 		<div class="baker-card">
@@ -49,14 +53,16 @@
 	{/each}
 </div>
 
+<!-- CTA for bakers screen -->
 <section class="cta">
 	<a href="/menu" class="button">Visit the Bakery</a>
 	<a href="/behind-the-scenes" class="button">See Them in Action</a>
 </section>
 
+<!-- More fun waves  -->
 <Waves />
 
-<style>
+<style lang="postcss">
 	.baker-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, 400px);

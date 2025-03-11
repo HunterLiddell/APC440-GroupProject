@@ -1,3 +1,8 @@
+/**
+ * Menu-item type.
+ *
+ * Used for constructing a menu item card.
+ */
 export type MenuItem = {
 	id: string;
 	name: string;
@@ -7,11 +12,14 @@ export type MenuItem = {
 	category: 'cats' | 'dogs' | 'humans';
 };
 
+/**
+ * List of items to render on the menu page
+ */
 export const menuItems: MenuItem[] = [
 	// Cat Treats
 	{
 		id: 'c1',
-		name: "Whisker's Wonderland Cupcakes",
+		name: "Whisker's Cupcakes",
 		price: 4.99,
 		description: 'Catnip-infused cupcakes topped with salmon mousse and silver sprinkles',
 		image: '/menuitems/wonderland-cupcakes.webp',
@@ -27,7 +35,7 @@ export const menuItems: MenuItem[] = [
 	},
 	{
 		id: 'c3',
-		name: 'Meow-velous Mouse Cookies',
+		name: 'Meow-velous Cookies',
 		price: 3.99,
 		description: 'Mouse-shaped cookies with cheese and catnip filling',
 		image: '/menuitems/mouse-cookies.webp',

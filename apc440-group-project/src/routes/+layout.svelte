@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { MailIcon, MapPinIcon, PhoneIcon, ShoppingBag } from 'lucide-svelte';
+	import { ShoppingBag } from 'lucide-svelte';
 	import '../app.css';
 	import '../tailwind.css';
 	import Footer from './footer.svelte';
@@ -8,17 +8,24 @@
 	let { children }: { children: Snippet } = $props();
 </script>
 
+<!-- Global header -->
 <header>
+	<!-- Logo and company name -->
 	<a style="height: 100%;" href="/">
 		<img style="height: 100%; border-radius: 100%" src="./logo.webp" alt="Logo" />
 	</a>
-	<h1>Paws & Pastries</h1>
+	<a href="/">
+		<h1>Paws & Pastries</h1>
+	</a>
 
+	<!-- Main navigation bar -->
 	<nav>
 		<a href="/menu">Menu</a>
 		<a href="/meet-the-bakers">Meet the Bakers</a>
 		<a href="/behind-the-scenes">Behind the Scenes</a>
 	</nav>
+
+	<!-- Cart button -->
 	<button
 		class="mr-4"
 		onclick={() => {
@@ -29,9 +36,12 @@
 	</button>
 </header>
 
+<!-- All child pages under each route -->
 <main>
 	{@render children()}
 </main>
+
+<!-- Global footer -->
 <Footer />
 
 <style lang="postcss">

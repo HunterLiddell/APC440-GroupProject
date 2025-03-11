@@ -10,12 +10,15 @@
 
 <main>
 	<section>
+		<!-- Hero with CTA -->
 		<div class="flex flex-col absolute z-10 items-center justify-center h-full">
 			{#if mounted}
 				<h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
 				<h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
 					Where Furry Bakers Create Pawesome Treats
 				</h3>
+
+				<div class="flex"></div>
 			{/if}
 		</div>
 		<img src="/hero3.webp" alt="Paws & Pastries Bakery" />

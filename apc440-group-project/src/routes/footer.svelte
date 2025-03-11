@@ -1,3 +1,4 @@
+<!-- Global footer containing about-us, contact, hours, and newsletter @component -->
 <script>
 	import { MapPin, Phone, Mail } from 'lucide-svelte';
 </script>

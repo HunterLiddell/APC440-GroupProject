@@ -1,18 +1,21 @@
+<!-- Generic button used for most actions. Contains two different types - default (filled) and outline (hollow with border) @component -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 
 	interface IProps {
+		/** Children to render in the button. */
 		children: Snippet;
-		class: string;
+		/** Type of button style. 1. Default - filled | 2. Outline - hollow with border */
 		type?: 'default' | 'outline';
+		/** Click handler derived from baked-in button click */
 		onclick: MouseEventHandler<HTMLButtonElement> | null | undefined;
 	}
 
-	let { children, class: customClass, onclick }: IProps = $props();
+	let { children, type = 'default', onclick }: IProps = $props();
 </script>
 
-<button {onclick} data-variant={customClass} class={customClass}>
+<button {onclick} class={type}>
 	{@render children()}
 </button>
 

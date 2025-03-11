@@ -1,3 +1,4 @@
+<!-- Background component for the Menu page. Generates icons to float and animate in the background. @component -->
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';

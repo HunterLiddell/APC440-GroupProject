@@ -1,3 +1,6 @@
+<!-- Card built for a menu item. Contains an image, title, price, description, and add to cart button.
+ @component -->
+
 <script lang="ts">
 	import type { MenuItem } from '$lib/services/menu-items';
 	import { ShoppingCart } from 'lucide-svelte';
@@ -17,9 +20,7 @@
 		<p class="card-description">{item.description}</p>
 		<div class="card-footer" style="margin-top: auto;">
 			<span class="price">${item.price}</span>
-			<Button onclick={() => {}} class="default"
-				><ShoppingCart size={14} /> Add to Cart</Button
-			>
+			<Button onclick={() => {}}><ShoppingCart size={14} /> Add to Cart</Button>
 		</div>
 	</div>
 </div>
