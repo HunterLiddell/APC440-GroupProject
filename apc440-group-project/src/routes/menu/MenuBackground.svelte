@@ -2,6 +2,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { innerWidth } from 'svelte/reactivity/window';
 
 	interface Paw {
 		id: number;
@@ -38,7 +39,7 @@
 	}
 
 	onMount(() => {
-		generatePawPrints(30); // Adjust count as needed
+		generatePawPrints((innerWidth.current ?? 0 > 600) ? 30 : 10); // Adjust count as needed
 	});
 </script>
 
