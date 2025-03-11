@@ -1,23 +1,21 @@
 <script lang="ts">
 	import { menuItems } from '$lib/services/menu-items';
 	import Button from '$lib/ui/Button.svelte';
-	import { ShoppingBagIcon, StarIcon, CakeIcon, DogIcon, CatIcon, UserIcon } from 'lucide-svelte';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { CakeIcon, DogIcon, CatIcon, UserIcon } from 'lucide-svelte';
+	import { fade, fly } from 'svelte/transition';
 	import MenuBackground from './MenuBackground.svelte';
-	import Badge from '$lib/ui/Badge.svelte';
-	import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
+	import { cubicInOut } from 'svelte/easing';
+	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
 
 	type FilterType = 'all' | 'cats' | 'dogs' | 'humans';
 	let activeFilter: FilterType = $state('all');
 
-	/**
-	 * Gets the color of the badge needed
-	 */
-	const getBadgeColor = (category: 'cats' | 'dogs' | 'humans') => {
-		if (category == 'cats') return 'red';
-		if (category == 'dogs') return 'blue';
-		return 'green';
-	};
+	let filteredItems = $derived.by(() => {
+		if (activeFilter == 'cats') return menuItems.filter((item) => item.category == 'cats');
+		if (activeFilter == 'dogs') return menuItems.filter((item) => item.category == 'dogs');
+		if (activeFilter == 'humans') return menuItems.filter((item) => item.category == 'humans');
+		return menuItems;
+	});
 </script>
 
 <!-- Absolute positioned background with floating icons -->
@@ -58,42 +56,27 @@
 		</div>
 	</div>
 </section>
+
 <hr />
 
 <section>
 	<div in:fly={{ y: '100px', duration: 600, delay: 100 }} class="menu-grid">
-		{#each menuItems as item, index}
-			<div class="card">
-				<div class="card-header">
-					<img src="" alt="Delicious Treat" />
-					{#if item.isPopular}
-						<span class="badge badge-popular"> ⭐ Popular </span>
-					{/if}
-				</div>
-				<div class="card-content">
-					<div class="card-title">
-						<span>{item.name}</span>
-						<span class="card-price">${item.price}</span>
-					</div>
-					<p class="card-description">{item.description}</p>
-					<div style="margin-top: auto;" class="card-tags">
-						{#each item.tags as tag}
-							<span class="badge badge-outline">{tag}</span>
-						{/each}
-					</div>
-					<div class="card-footer">
-						<Badge title={item.category} color={getBadgeColor(item.category)}></Badge>
-						<Button onclick={() => {}} class="default">🛒 Add to Cart</Button>
-					</div>
-				</div>
-			</div>
+		{#each filteredItems as item}
+			<MenuItemCard {item} />
 		{/each}
 	</div>
 </section>
 
-<style>
+<style lang="postcss">
 	h1 {
-		font-size: 52px;
+		font-size: 32px;
+		text-shadow: 0 2px 4px lightgray;
+	}
+
+	@media (min-width: 600px) {
+		h1 {
+			font-size: 64px !important;
+		}
 	}
 
 	hr {
@@ -139,77 +122,63 @@
 	.menu-grid {
 		display: grid;
 		gap: 1.5rem;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		margin: 0 auto;
+
+		grid-template-columns: repeat(1, 280px);
+		width: max-content;
+	}
+
+	@media (min-width: 600px) {
+		.menu-grid {
+			grid-template-columns: repeat(1, 280px);
+		}
 	}
 
 	/* Card Styling */
 	.card {
 		background: #fff;
 		border-radius: 12px;
-		overflow: hidden;
 		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 		transition: transform 0.3s ease-in-out;
-	}
+		display: flex;
+		flex-direction: column;
 
-	.card:hover {
-		transform: translateY(-5px);
+		&:hover {
+			transform: translateY(-5px);
+		}
 	}
 
 	/* Image Wrapper */
 	.card-header {
 		position: relative;
 		overflow: hidden;
-	}
 
-	.card-header img {
-		width: 100%;
-		aspect-ratio: 4 / 3;
-		object-fit: cover;
-		transition: transform 0.3s ease-in-out;
-	}
+		& img {
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+			transition: transform 0.3s ease-in-out;
+		}
 
-	.card:hover .card-header img {
-		transform: scale(1.05);
+		&:hover img {
+			transform: scale(1.05);
+		}
 	}
 
 	.card-footer {
 		display: flex;
 		gap: 12px;
-	}
-
-	/* Badge Styles */
-	.badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 5px;
-		font-size: 12px;
-		font-weight: bold;
-		padding: 5px 10px;
-		border-radius: 8px;
-	}
-
-	.badge-popular {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		background: #ff9800;
-		color: white;
-	}
-
-	.badge-outline {
-		border: 2px solid #ccc;
-		color: #333;
-		padding: 3px 8px;
-	}
-
-	.badge-secondary {
-		background: #e3f2fd;
-		color: #0277bd;
+		margin-top: auto;
 	}
 
 	/* Card Content */
 	.card-content {
 		padding: 1.5rem;
+		/* height: inherit; */
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	.card-title {
@@ -228,14 +197,6 @@
 	.card-description {
 		font-size: 14px;
 		color: #555;
-		margin-bottom: 1rem;
-	}
-
-	/* Tags */
-	.card-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 5px;
 		margin-bottom: 1rem;
 	}
 </style>
