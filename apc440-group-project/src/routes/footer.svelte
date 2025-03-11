@@ -63,13 +63,6 @@
 	h3 {
 		font-size: 24px;
 	}
-	body {
-		font-family: Arial, sans-serif;
-		margin: 0;
-		padding: 0;
-		background-color: #f8f9fa;
-		color: #333;
-	}
 
 	footer {
 		background-color: #1f1208;
@@ -104,17 +97,6 @@
 		padding: 10px;
 	}
 
-	.footer-section h3 {
-		font-size: 18px;
-		margin-bottom: 10px;
-		color: #fff;
-	}
-
-	.footer-section p {
-		font-size: 14px;
-		color: #ccc;
-	}
-
 	.contact-info {
 		font-size: 14px;
 		color: #ccc;
@@ -125,10 +107,6 @@
 		align-items: center;
 		gap: 8px;
 		margin-bottom: 5px;
-	}
-
-	.icon {
-		font-size: 16px;
 	}
 
 	.newsletter-form {

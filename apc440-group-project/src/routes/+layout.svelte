@@ -79,11 +79,4 @@
 			margin: 0 12px;
 		}
 	}
-
-	footer {
-		padding: 20px;
-		background-color: #ff914d;
-		color: white;
-		margin-top: auto;
-	}
 </style>
