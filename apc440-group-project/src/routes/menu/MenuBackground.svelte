@@ -39,7 +39,8 @@
 	}
 
 	onMount(() => {
-		generatePawPrints((innerWidth.current ?? 0 > 600) ? 30 : 10); // Adjust count as needed
+		// Generate background icons - mobile is 10 and anything else is 30
+		generatePawPrints((innerWidth.current ?? 0) > 600 ? 30 : 10); // Adjust count as needed
 	});
 </script>
 
@@ -68,7 +69,6 @@
 		height: 100%;
 		top: 0;
 		left: 0;
-
 		overflow: hidden;
 		z-index: -1;
 	}
