@@ -84,7 +84,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 8px 16px;
-		height: 6rem;
+		height: 5rem;
 		background-color: #ffe4c4;
 		color: white;
 		box-shadow: 0 0 12px gray;
@@ -108,7 +108,6 @@
 	}
 
 	.mobile-drawer {
-		/* absolute top-20 w-full bg-white pt-6 shadow-lg */
 		position: absolute;
 		z-index: 1;
 		top: 110px;
