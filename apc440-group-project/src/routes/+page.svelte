@@ -68,7 +68,6 @@
 		object-fit: cover;
 		object-position: center;
 		opacity: 1;
-		background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0.5) 50%);
 		opacity: 0.5;
 	}
 
@@ -85,10 +84,8 @@
 		flex-direction: column;
 		height: 600px;
 		overflow: hidden;
-
-		&.hero {
-			background-color: rgb(255, 245, 219);
-		}
+		background-color: rgb(79, 69, 45);
+		background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0.7) 90%);
 	}
 
 	h2 {

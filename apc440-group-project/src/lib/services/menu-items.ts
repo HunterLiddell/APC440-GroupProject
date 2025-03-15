@@ -3,14 +3,14 @@
  *
  * Used for constructing a menu item card.
  */
-export type MenuItem = {
+export interface MenuItem {
 	id: string;
 	name: string;
 	price: number;
 	description: string;
 	image: string;
 	category: 'cats' | 'dogs' | 'humans';
-};
+}
 
 /**
  * List of items to render on the menu page

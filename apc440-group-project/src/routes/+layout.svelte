@@ -4,12 +4,19 @@
 	import '../tailwind.css';
 	import Footer from './footer.svelte';
 	import Header from './header.svelte';
+	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
 
 	let { children }: { children: Snippet } = $props();
+
+	$inspect(cart.isOpen());
 </script>
 
 <!-- Global header -->
 <Header />
+
+{#if cart.isOpen()}
+	<Cart />
+{/if}
 
 <!-- All child pages under each route -->
 <main>

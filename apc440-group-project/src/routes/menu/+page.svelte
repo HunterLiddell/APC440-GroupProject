@@ -6,12 +6,16 @@
 	import MenuBackground from './MenuBackground.svelte';
 	import { cubicInOut } from 'svelte/easing';
 	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
+	import { page } from '$app/state';
+	import { goto, replaceState } from '$app/navigation';
 
 	/** Values to filter by */
 	type FilterType = 'all' | 'cats' | 'dogs' | 'humans';
 
 	/** Actively applied filter. Default `all`*/
-	let activeFilter: FilterType = $state('all');
+	let activeFilter: FilterType = $derived(
+		(page.url.searchParams.get('filter') as FilterType) ?? 'all'
+	);
 
 	/**
 	 * Filtered menu items
@@ -24,6 +28,14 @@
 		if (activeFilter == 'humans') return menuItems.filter((item) => item.category == 'humans');
 		return menuItems;
 	});
+
+	/**
+	 * Updates a filter with the provided value
+	 */
+	function setFilter(filter: FilterType) {
+		// Fire client-side navigation on the same page
+		goto(`/menu?filter=${filter}`);
+	}
 </script>
 
 <!-- Absolute positioned background with floating icons -->
@@ -40,25 +52,25 @@
 		<div class="button-group">
 			<Button
 				type={activeFilter === 'all' ? 'default' : 'outline'}
-				onclick={() => (activeFilter = 'all')}
+				onclick={() => setFilter('all')}
 			>
 				<CakeIcon /> All Treats
 			</Button>
 			<Button
 				type={activeFilter === 'cats' ? 'default' : 'outline'}
-				onclick={() => (activeFilter = 'cats')}
+				onclick={() => setFilter('cats')}
 			>
 				<CatIcon /> Cat Treats
 			</Button>
 			<Button
 				type={activeFilter === 'dogs' ? 'default' : 'outline'}
-				onclick={() => (activeFilter = 'dogs')}
+				onclick={() => setFilter('dogs')}
 			>
 				<DogIcon /> Dog Treats
 			</Button>
 			<Button
 				type={activeFilter === 'humans' ? 'default' : 'outline'}
-				onclick={() => (activeFilter = 'humans')}
+				onclick={() => setFilter('humans')}
 			>
 				<UserIcon /> Human Treats
 			</Button>

@@ -5,6 +5,7 @@
 	import type { MenuItem } from '$lib/services/menu-items';
 	import { ShoppingCart } from 'lucide-svelte';
 	import Button from './Button.svelte';
+	import { cart } from './cart/Cart.svelte';
 
 	let { item }: { item: MenuItem } = $props();
 </script>
@@ -20,7 +21,9 @@
 		<p class="card-description">{item.description}</p>
 		<div class="card-footer" style="margin-top: auto;">
 			<span class="price">${item.price}</span>
-			<Button onclick={() => {}}><ShoppingCart size={14} /> Add to Cart</Button>
+			<Button id="for-cart" onclick={() => cart.add(item)}
+				><ShoppingCart size={14} /> Add to Cart</Button
+			>
 		</div>
 	</div>
 </div>

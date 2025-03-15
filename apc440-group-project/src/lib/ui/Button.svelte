@@ -8,14 +8,16 @@
 		children: Snippet;
 		/** Type of button style. 1. Default - filled | 2. Outline - hollow with border */
 		type?: 'default' | 'outline';
+
+		id?: 'for-cart' | '';
 		/** Click handler derived from baked-in button click */
 		onclick: MouseEventHandler<HTMLButtonElement> | null | undefined;
 	}
 
-	let { children, type = 'default', onclick }: IProps = $props();
+	let { children, type = 'default', id = '', onclick }: IProps = $props();
 </script>
 
-<button {onclick} class={type}>
+<button {id} {onclick} class={type}>
 	{@render children()}
 </button>
 
