@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { ShoppingBag } from 'lucide-svelte';
 	import { innerWidth } from 'svelte/reactivity/window';
 	import { fly } from 'svelte/transition';
@@ -41,6 +42,7 @@
 			{#if !isMobile}
 				<!-- Main navigation bar -->
 				<nav>
+					<a href="/">Home</a>
 					<a href="/menu">Menu</a>
 					<a href="/meet-the-bakers">Meet the Bakers</a>
 					<a href="/behind-the-scenes">Behind the Scenes</a>
@@ -48,13 +50,14 @@
 			{/if}
 
 			<!-- Cart button -->
-			<button
-				class=""
-				onclick={() => {
-					// Nothing for now..  Open cart here later
-				}}
-			>
-				<ShoppingBag size={32} />
+			<button style="position: relative;" id="for-cart" onclick={() => cart.open()}>
+				<ShoppingBag id="for-cart" size={32} />
+				{#if cart.itemCount > 0}
+					{@const count = cart.itemCount > 99 ? '99+' : cart.itemCount}
+					<div class="cart-items">
+						{count}
+					</div>
+				{/if}
 			</button>
 		</div>
 		{#if isMobile && showDrawer}
@@ -91,6 +94,22 @@
 		z-index: 9999;
 	}
 
+	.cart-items {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: -30%;
+		right: -10%;
+		aspect-ratio: 1;
+		text-align: center;
+		width: fit-content;
+		min-width: 16px;
+		padding: 4px;
+		background-color: #ff6b6b;
+		border-radius: 100%;
+	}
+
 	h1 {
 		letter-spacing: 1px;
 	}
@@ -98,6 +117,7 @@
 	nav {
 		margin-left: auto;
 		margin-right: 12px;
+		flex-shrink: 0;
 
 		& a {
 			text-wrap: nowrap;

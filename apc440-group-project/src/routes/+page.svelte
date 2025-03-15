@@ -37,7 +37,7 @@
 	<Waves rotate="180deg" />
 
 	<section class="menu-cta">
-		<h2 style="">Our Products</h2>
+		<h2>Our Products</h2>
 		<p class="menu-cta-message">
 			For over 25 years, Paws & Pastries has been serving up tail-wagging treats and
 			purr-worthy pastries—made from scratch, in small batches, and with the finest
@@ -49,8 +49,9 @@
 
 		<div class="menu-item-wrapper">
 			{#each menuCtaItems as item}
+				{@const filter = item.title.toLowerCase()}
 				<div class="menu-cta-item">
-					<a href="/menu" class="image-wrapper">
+					<a href={`/menu?filter=${filter}`} class="image-wrapper">
 						<img src={item.image} alt={item.title + ' menu'} />
 					</a>
 					<p>{item.title}</p>

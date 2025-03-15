@@ -7,13 +7,12 @@
 	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
 
 	let { children }: { children: Snippet } = $props();
-
-	$inspect(cart.isOpen());
 </script>
 
 <!-- Global header -->
 <Header />
 
+<!-- Global cart -->
 {#if cart.isOpen()}
 	<Cart />
 {/if}

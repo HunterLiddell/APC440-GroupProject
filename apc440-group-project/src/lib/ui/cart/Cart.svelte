@@ -20,6 +20,15 @@
 			return t;
 		});
 
+		/**
+		 * Number of individual items in the cart
+		 */
+		itemCount: number = $derived.by(() => {
+			let count = 0;
+			this.#lineItems.forEach((item) => (count += item.quantity));
+			return count;
+		});
+
 		/** Returns list of line items */
 		getLineItems = () => this.#lineItems.entries();
 		/** Open the cart */
@@ -41,8 +50,10 @@
 			if (lineitem) lineitem.quantity++;
 			// Otherwise add new entry
 			else {
-				const t = $state({ ...product, quantity: 1 });
-				this.#lineItems.set(product.id, t);
+				// Declare new stated variable for reactivity within the map
+				const statedItem = $state({ ...product, quantity: 1 });
+				// Insert into map
+				this.#lineItems.set(product.id, statedItem);
 			}
 		};
 
@@ -96,28 +107,32 @@
 
 	onMount(() => {
 		// Declare click handler on the window
-		const remove = on(window, 'click', (e) => {
+		const removeClick = on(window, 'click', (e) => {
 			// if the click event originates from inside the cart modal, do nothing
 			if (cartElement?.contains(e.target as Node)) {
-				console.log('here?');
 				return;
 			}
 
 			// Otherwise check if the target id is related to add-to-cart logic
 			if ((e.target as HTMLElement).id != 'for-cart') {
-				console.log('here 2?');
 				handleClose();
 			}
 		});
+		// If user scrolls with the cart open, close it
+		const removeScroll = on(window, 'scroll', () => {
+			handleClose();
+		});
 
 		// Remove event listener
-		onDestroy(() => remove());
+		onDestroy(() => {
+			removeClick();
+			removeScroll();
+		});
 	});
 
 	let cartElement: HTMLElement | null = $state(null);
 
 	function t(e: Event & { currentTarget: EventTarget & HTMLInputElement }, id: string) {
-		console.log(e, id);
 		const newQ = (e.target as HTMLInputElement).value;
 		cart.updateQuantity(parseInt(newQ), id);
 	}
@@ -158,6 +173,12 @@
 						>
 					</div>
 				</div>
+			</div>
+		{:else}
+			<div
+				style="background-color: rgba(0,0,0,0.05); width: 100%; height: 100%; display: flex; aligh-items: center; text-align: center;"
+			>
+				<p style="margin: auto; font-weight: 600">No items in your cart</p>
 			</div>
 		{/each}
 	</div>
@@ -247,7 +268,7 @@
 		&.close {
 			/* Predefined width for the animation to start at during close.
             Needs to be the same as the ending height of the opening animation. */
-			width: 400px;
+			width: 350px;
 
 			animation:
 				shrinkVertical 0.2s ease-in-out forwards,
@@ -272,7 +293,7 @@
 			width: 50px;
 		}
 		100% {
-			width: 400px;
+			width: 350px;
 		}
 	}
 
@@ -297,7 +318,7 @@
 
 	@keyframes shrinkHorizontal {
 		0% {
-			width: 400px;
+			width: 350px;
 		}
 		100% {
 			width: 50px;
