@@ -11,21 +11,27 @@
 
 		id?: 'for-cart' | '';
 
-		fullWidth?: boolean;
+		href?: string;
 
 		/** Click handler derived from baked-in button click */
-		onclick: MouseEventHandler<HTMLButtonElement> | null | undefined;
+		onclick?: () => void;
 	}
 
-	let { children, type = 'default', id = '', fullWidth = false, onclick }: IProps = $props();
+	let { children, type = 'default', id = '', href = '', onclick = () => {} }: IProps = $props();
 </script>
 
-<button style:width={fullWidth ? '100%' : ''} {id} {onclick} class={type}>
-	{@render children()}
-</button>
+{#if href}
+	<a {id} {href} {onclick} class={type}>{@render children()}</a>
+{:else}
+	<button {id} {onclick} class={type}>
+		{@render children()}
+	</button>
+{/if}
 
 <style lang="postcss">
+	a,
 	button {
+		text-decoration: none;
 		display: flex;
 		align-items: center;
 		text-align: center;

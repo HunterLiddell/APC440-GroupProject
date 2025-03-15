@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { ShoppingBag } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import { on } from 'svelte/events';
 	import { innerWidth } from 'svelte/reactivity/window';
 	import { fly } from 'svelte/transition';
 
@@ -9,8 +11,17 @@
 	/** Controls mobile drawer visibility */
 	let showDrawer: boolean = $state(false);
 
+	/** Toggle drawer open and closed*/
 	const toggleDrawer = () => (showDrawer = !showDrawer);
+	/** Close the crawer */
 	const closeDrawer = () => (showDrawer = false);
+
+	onMount(() => {
+		// Close the drawer if the user scrolls
+		on(window, 'scroll', () => {
+			closeDrawer();
+		});
+	});
 </script>
 
 <header style={isMobile ? 'justify-content: space-between;' : ''}>
@@ -132,7 +143,7 @@
 	.mobile-drawer {
 		position: absolute;
 		z-index: 1;
-		top: 110px;
+		top: 95px;
 		padding-top: 24px;
 		box-shadow: 0 0 8px;
 		height: 300px;
@@ -202,7 +213,6 @@
 
 		&.active span:nth-child(2) {
 			opacity: 0;
-			/* transform: scaleY(0); */
 		}
 
 		&.active span:nth-child(3) {

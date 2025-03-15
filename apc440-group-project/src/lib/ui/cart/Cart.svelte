@@ -268,7 +268,7 @@
 		&.close {
 			/* Predefined width for the animation to start at during close.
             Needs to be the same as the ending height of the opening animation. */
-			width: 350px;
+			width: 344px;
 
 			animation:
 				shrinkVertical 0.2s ease-in-out forwards,
@@ -293,7 +293,7 @@
 			width: 50px;
 		}
 		100% {
-			width: 350px;
+			width: 344px;
 		}
 	}
 
@@ -318,7 +318,7 @@
 
 	@keyframes shrinkHorizontal {
 		0% {
-			width: 350px;
+			width: 344px;
 		}
 		100% {
 			width: 50px;

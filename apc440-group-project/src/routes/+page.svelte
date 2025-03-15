@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Button from '$lib/ui/Button.svelte';
 	import Waves from '$lib/ui/Waves.svelte';
 	import { onMount } from 'svelte';
@@ -20,14 +21,14 @@
 		<!-- Hero with CTA -->
 		<div class="flex flex-col absolute z-10 items-center justify-center h-full">
 			{#if mounted}
-				<h2 in:fly={{ y: '300px', duration: 1600 }}>Paws & Pastries</h2>
-				<h3 in:fly={{ y: '100px', duration: 1000, delay: 800 }}>
+				<h2 in:fly={{ y: '300px', duration: 800 }}>Paws & Pastries</h2>
+				<h3 in:fly={{ y: '100px', duration: 500, delay: 300 }}>
 					Where Furry Bakers Create Pawesome Treats
 				</h3>
 
 				<div class="hero-cta">
-					<Button onclick={() => {}}>See Menu</Button>
-					<Button onclick={() => {}}>Meet our Bakers</Button>
+					<Button href="/menu">See Menu</Button>
+					<Button href="/meet-the-bakers">Meet our Bakers</Button>
 				</div>
 			{/if}
 		</div>
@@ -108,12 +109,9 @@
 		text-align: center;
 	}
 
-	.menu-cta {
-		& h2 {
-			font-size: 64px;
-			text-shadow: 0 5px 2px lightgray;
-			color: #b66a37;
-		}
+	.menu-cta h2 {
+		text-shadow: 0 5px 2px lightgray;
+		color: #b66a37;
 	}
 
 	.menu-cta-message {
@@ -129,8 +127,6 @@
 		gap: 16px;
 		flex-wrap: wrap;
 		justify-content: center;
-		/* width: 250px; */
-		/* height: fit-content; */
 
 		& .menu-cta-item {
 			display: flex;
