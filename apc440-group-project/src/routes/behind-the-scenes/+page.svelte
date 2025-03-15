@@ -131,6 +131,9 @@
 	}
 
 	@media (max-width: 800px) {
+		.hero-text {
+			font-size: 3rem;
+		}
 		.hero {
 			grid-template-columns: 1fr;
 			grid-template-rows: auto auto;
