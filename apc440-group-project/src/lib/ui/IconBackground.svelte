@@ -4,6 +4,8 @@
 	import { fade } from 'svelte/transition';
 	import { innerWidth } from 'svelte/reactivity/window';
 
+	let { count }: { count?: number } = $props();
+
 	interface Paw {
 		id: number;
 		size: string;
@@ -39,8 +41,12 @@
 	}
 
 	onMount(() => {
+		let numberOfIcons;
+		if (count) {
+			numberOfIcons = count;
+		} else numberOfIcons = (innerWidth.current ?? 0) > 600 ? 30 : 10;
 		// Generate background icons - mobile is 10 and anything else is 30
-		generatePawPrints((innerWidth.current ?? 0) > 600 ? 30 : 10); // Adjust count as needed
+		generatePawPrints(numberOfIcons); // Adjust count as needed
 	});
 </script>
 

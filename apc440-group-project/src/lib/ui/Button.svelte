@@ -10,14 +10,17 @@
 		type?: 'default' | 'outline';
 
 		id?: 'for-cart' | '';
+
+		fullWidth?: boolean;
+
 		/** Click handler derived from baked-in button click */
 		onclick: MouseEventHandler<HTMLButtonElement> | null | undefined;
 	}
 
-	let { children, type = 'default', id = '', onclick }: IProps = $props();
+	let { children, type = 'default', id = '', fullWidth = false, onclick }: IProps = $props();
 </script>
 
-<button {id} {onclick} class={type}>
+<button style:width={fullWidth ? '100%' : ''} {id} {onclick} class={type}>
 	{@render children()}
 </button>
 
@@ -25,6 +28,7 @@
 	button {
 		display: flex;
 		align-items: center;
+		text-align: center;
 		gap: 8px;
 		padding: 10px 16px;
 		border-radius: 6px;

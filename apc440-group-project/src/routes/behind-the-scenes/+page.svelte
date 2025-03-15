@@ -130,10 +130,12 @@
 		object-fit: cover;
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 1000px) {
 		.hero-text {
 			font-size: 3rem;
 		}
+	}
+	@media (max-width: 800px) {
 		.hero {
 			grid-template-columns: 1fr;
 			grid-template-rows: auto auto;

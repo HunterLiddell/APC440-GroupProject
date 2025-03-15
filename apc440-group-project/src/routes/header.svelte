@@ -4,7 +4,7 @@
 	import { innerWidth } from 'svelte/reactivity/window';
 	import { fly } from 'svelte/transition';
 
-	let isMobile: boolean = $derived((innerWidth?.current ?? 0) < 900);
+	let isMobile: boolean = $derived((innerWidth?.current ?? 0) < 935);
 
 	/** Controls mobile drawer visibility */
 	let showDrawer: boolean = $state(false);
@@ -46,6 +46,7 @@
 					<a href="/menu">Menu</a>
 					<a href="/meet-the-bakers">Meet the Bakers</a>
 					<a href="/behind-the-scenes">Behind the Scenes</a>
+					<a href="/contact">Contact</a>
 				</nav>
 			{/if}
 
@@ -54,7 +55,7 @@
 				<ShoppingBag id="for-cart" size={32} />
 				{#if cart.itemCount > 0}
 					{@const count = cart.itemCount > 99 ? '99+' : cart.itemCount}
-					<div class="cart-items">
+					<div id="for-cart" class="cart-items">
 						{count}
 					</div>
 				{/if}
@@ -67,6 +68,7 @@
 					<a onclick={closeDrawer} href="/menu">Menu</a>
 					<a onclick={closeDrawer} href="/meet-the-bakers">Meet the Bakers</a>
 					<a onclick={closeDrawer} href="/behind-the-scenes">Behind the Scenes</a>
+					<a onclick={closeDrawer} href="/contact">Contact</a>
 				</nav>
 			</div>
 		{/if}
@@ -153,6 +155,7 @@
 				text-align: center;
 				padding: 8px 0;
 				width: 75%;
+				background-color: rgb(255, 249, 237);
 
 				&:hover {
 					background-color: bisque;
