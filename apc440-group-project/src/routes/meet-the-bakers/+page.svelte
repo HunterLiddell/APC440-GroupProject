@@ -40,6 +40,18 @@
 <!-- Fun wave -->
 <Waves rotate="180deg" />
 
+<section
+	style="display: flex; flex-direction: column; align-items: center; justify-content: center;"
+>
+	<h1 style="font-size: 44px;">Our Bakers</h1>
+	<p style="max-width: 800px; text-align: center;">
+		At Paws & Pastries, our bakers are a little furrier than most, but they bring the same
+		passion and dedication to crafting delicious treats! Meet the talented paws behind our
+		handcrafted pastries, made with love for pets and their humans.
+	</p>
+</section>
+<hr style="width: 90%" />
+
 <!-- List of baker tiles -->
 <div class="baker-grid" in:fly={{ y: 200, duration: 1000 }}>
 	{#each bakers as baker}
