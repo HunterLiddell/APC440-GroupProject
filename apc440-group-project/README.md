@@ -50,6 +50,10 @@ If something goes wrong (for any reason), follow these steps to install the supp
 
 ### Step 3 - Install any dependencies if necessary
 
+```
+npm install
+```
+
 Once Node is installed, you'll have access to the package manager they provide for
 running a svelte project!
 
@@ -63,17 +67,13 @@ At this point, checking for dependencies is a good idea just in case.
 As of writing this, I have not installed any more than the one's described below and don't plan to,
 however Svelte does have some that it requires, so running the install command is a good idea (keep reading to see it).
 
+- Update: I DID install a library, but just for icons. It's called "lucide-svelte" and I use it for my other projects
+
 - Note that this does not install npm, but instead installs any dependencies if any are found!
 - Dependencies are based on package.json, feel free to have a look!
 
 Below is a snippet of the dependencies that Svelte requires and a couple basic one's I have installed such as Prettier and Typescript
 ![package.json dependencies](image.png)
-
-The install command! Make sure you're in the same directory as I have described above :)
-
-```
-npm install
-```
 
 You may get freaked out if you see severity issues, but don't be! As long as it says something like "7 packages installed" then you're good to go!! Don't worry about running any commands that it suggests as they do not pertain to you :)
 
@@ -110,6 +110,8 @@ Go ahead and connect to it in the browser!!
 
 #### Connection example
 
+##### Local
+
 ```
 
   VITE v6.2.0  ready in 1547 ms
@@ -117,4 +119,12 @@ Go ahead and connect to it in the browser!!
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
+```
+
+##### Deployed
+
+- I have also deployed this project for an easier time viewing if you'd like to go that route!
+
+```
+https://main.d9h26mhn1fmw4.amplifyapp.com/
 ```
