@@ -7,11 +7,7 @@
 			title: 'Whiskers at Work',
 			desc: 'Our feline bakers carefully measure and mix only the finest ingredients.'
 		},
-		{
-			img: '/behind-the-scenes/tail-wagging-tests.webp',
-			title: 'Tail-Wagging Taste Tests',
-			desc: 'Every batch goes through a serious taste test before baking.'
-		},
+
 		{
 			img: '/behind-the-scenes/fresh-out-oven.webp',
 			title: 'Fresh Out of the Oven',
@@ -21,6 +17,11 @@
 			img: '/behind-the-scenes/final-tests.webp',
 			title: 'The Finishing Touch',
 			desc: 'Our decorators add the final flourishes, from frosting to paw-print sprinkles.'
+		},
+		{
+			img: '/behind-the-scenes/tail-wagging-tests.webp',
+			title: 'Tail-Wagging Taste Tests',
+			desc: 'Every batch goes through a serious taste test before baking.'
 		}
 	];
 	const galleryImages = [
@@ -91,7 +92,7 @@
 	</ol>
 </section>
 
-<style>
+<style lang="postcss">
 	h1,
 	h2 {
 		text-align: center;
@@ -161,14 +162,14 @@
 		background: white;
 		border-radius: 10px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
 
-	.step img {
-		width: 100%;
-		height: 250px;
-		object-fit: cover;
-		border-radius: 12px;
-		margin-bottom: 10px;
+		& img {
+			width: 95%;
+			height: 300px;
+			object-fit: cover;
+			border-radius: 12px;
+			margin-bottom: 10px;
+		}
 	}
 
 	/* Gallery Styles */
