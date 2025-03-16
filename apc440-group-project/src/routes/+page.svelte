@@ -16,51 +16,49 @@
 	];
 </script>
 
-<main>
-	<section class="hero">
-		<!-- Hero with CTA -->
-		<div class="flex flex-col absolute z-10 items-center justify-center h-full">
-			{#if mounted}
-				<h2 in:fly={{ y: '300px', duration: 800 }}>Paws & Pastries</h2>
-				<h3 in:fly={{ y: '100px', duration: 500, delay: 300 }}>
-					Where Furry Bakers Create Pawesome Treats
-				</h3>
+<section class="hero">
+	<!-- Hero with CTA -->
+	<div class="flex flex-col absolute z-10 items-center justify-center h-full">
+		{#if mounted}
+			<h2 in:fly={{ y: '300px', duration: 800 }}>Paws & Pastries</h2>
+			<h3 in:fly={{ y: '100px', duration: 500, delay: 300 }}>
+				Where Furry Bakers Create Pawesome Treats
+			</h3>
 
-				<div class="hero-cta">
-					<Button href="/menu">See Menu</Button>
-					<Button href="/meet-the-bakers">Meet our Bakers</Button>
-				</div>
-			{/if}
-		</div>
-		<img src="/hero5.webp" alt="Paws & Pastries Bakery" />
-	</section>
+			<div class="hero-cta">
+				<Button href="/menu">See Menu</Button>
+				<Button href="/meet-the-bakers">Meet our Bakers</Button>
+			</div>
+		{/if}
+	</div>
+	<img src="/hero5.webp" alt="Paws & Pastries Bakery" />
+</section>
 
-	<Waves rotate="180deg" />
+<Waves rotate="180deg" />
 
-	<section class="menu-cta">
-		<h2>Our Products</h2>
-		<p class="menu-cta-message">
-			For over 25 years, Paws & Pastries has been serving up tail-wagging treats and
-			purr-worthy pastries—made from scratch, in small batches, and with the finest
-			ingredients. Our bakery is where whiskers meet warm ovens, and every bite is crafted
-			with love for pets and their people alike.
-		</p>
+<section class="menu-cta">
+	<h2>Our Products</h2>
+	<p class="menu-cta-message">
+		For over 25 years, Paws & Pastries has been serving up tail-wagging treats and purr-worthy
+		pastries—made from scratch, in small batches, and with the finest ingredients. Our bakery is
+		where whiskers meet warm ovens, and every bite is crafted with love for pets and their
+		people alike.
+	</p>
 
-		<br />
+	<br />
 
-		<div class="menu-item-wrapper">
-			{#each menuCtaItems as item}
-				{@const filter = item.title.toLowerCase()}
-				<div class="menu-cta-item">
-					<a href={`/menu?filter=${filter}`} class="image-wrapper">
-						<img src={item.image} alt={item.title + ' menu'} />
-					</a>
-					<p>{item.title}</p>
-				</div>
-			{/each}
-		</div>
-	</section>
-</main>
+	<div class="menu-item-wrapper">
+		{#each menuCtaItems as item}
+			{@const filter = item.title.toLowerCase()}
+			<div class="menu-cta-item">
+				<a href={`/menu?filter=${filter}`} class="image-wrapper">
+					<img src={item.image} alt={item.title + ' menu'} />
+				</a>
+				<p>{item.title}</p>
+			</div>
+		{/each}
+	</div>
+</section>
 
 <style lang="postcss">
 	.hero img {

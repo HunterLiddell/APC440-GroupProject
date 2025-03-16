@@ -31,67 +31,65 @@
 	];
 </script>
 
-<main>
-	<Waves rotate="180deg" />
-	<!-- Hero Section -->
-	<section class="hero">
-		<h1 class="hero-text">Welcome to the cozy kitchen of Paws & Pastries!</h1>
-		<img src="/behind-the-scenes/hero.webp" alt="Behind the scenes bakery" />
-	</section>
+<Waves rotate="180deg" />
+<!-- Hero Section -->
+<section class="hero">
+	<h1 class="hero-text">Welcome to the cozy kitchen of Paws & Pastries!</h1>
+	<img src="/behind-the-scenes/hero.webp" alt="Behind the scenes bakery" />
+</section>
 
-	<h2>Behind the Scenes</h2>
-	<p>
-		Behind every treat is a dedicated team of paws hard at work, mixing, baking, and
-		taste-testing to perfection. Take a peek behind the scenes!
-	</p>
+<h2>Behind the Scenes</h2>
+<p>
+	Behind every treat is a dedicated team of paws hard at work, mixing, baking, and taste-testing
+	to perfection. Take a peek behind the scenes!
+</p>
 
-	<!-- Step-by-Step Process -->
-	<section class="process">
-		{#each steps as step}
-			<div class="step">
-				<img src={step.img} alt={step.title} />
-				<h3>{step.title}</h3>
-				<p>{step.desc}</p>
-			</div>
-		{/each}
-	</section>
+<!-- Step-by-Step Process -->
+<section class="process">
+	{#each steps as step}
+		<div class="step">
+			<img src={step.img} alt={step.title} />
+			<h3>{step.title}</h3>
+			<p>{step.desc}</p>
+		</div>
+	{/each}
+</section>
 
-	<!-- Section break with 2 waves -->
-	<Waves />
-	<Waves rotate="180deg" />
+<!-- Section break with 2 waves -->
+<Waves />
+<Waves rotate="180deg" />
 
-	<!-- Image Gallery -->
-	<h2>Inside the Kitchen</h2>
-	<p class="section-desc">
-		Our bakery is always buzzing with activity, from dough-kneading to frosting the final
-		details. Take a closer look at the moments that bring Paws & Pastries to life!
-	</p>
-	<section class="gallery">
-		{#each galleryImages as img}
-			<img src={img} alt="Behind the scenes" />
-		{/each}
-	</section>
+<!-- Image Gallery -->
+<h2>Inside the Kitchen</h2>
+<p class="section-desc">
+	Our bakery is always buzzing with activity, from dough-kneading to frosting the final details.
+	Take a closer look at the moments that bring Paws & Pastries to life!
+</p>
+<section class="gallery">
+	{#each galleryImages as img}
+		<img src={img} alt="Behind the scenes" />
+	{/each}
+</section>
 
-	<!-- Recipe -->
-	<section class="recipe">
-		<h2>Make Your Own Peanut Butter Dog Biscuits!</h2>
-		<h3>Ingredients:</h3>
-		<ul>
-			<li>1 cup oat flour</li>
-			<li>½ cup peanut butter</li>
-			<li>1 egg</li>
-			<li>¼ cup unsweetened applesauce</li>
-		</ul>
+<!-- Recipe -->
+<section class="recipe">
+	<h2>Make Your Own Peanut Butter Dog Biscuits!</h2>
+	<h3>Ingredients:</h3>
+	<ul>
+		<li>1 cup oat flour</li>
+		<li>½ cup peanut butter</li>
+		<li>1 egg</li>
+		<li>¼ cup unsweetened applesauce</li>
+	</ul>
 
-		<h3>Instructions:</h3>
-		<ol>
-			<li>Mix all ingredients.</li>
-			<li>Roll dough & cut shapes.</li>
-			<li>Bake at 350°F for 15 min.</li>
-			<li>Let cool & serve!</li>
-		</ol>
-	</section>
-</main>
+	<h3>Instructions:</h3>
+	<ol>
+		<li>Mix all ingredients.</li>
+		<li>Roll dough & cut shapes.</li>
+		<li>Bake at 350°F for 15 min.</li>
+		<li>Let cool & serve!</li>
+	</ol>
+</section>
 
 <style>
 	h1,
@@ -166,8 +164,9 @@
 	}
 
 	.step img {
-		width: 180px;
-		height: 180px;
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
 		border-radius: 12px;
 		margin-bottom: 10px;
 	}

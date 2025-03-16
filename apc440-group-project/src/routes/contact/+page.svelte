@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/ui/Button.svelte';
 	import { Mail, MapPin, Phone } from 'lucide-svelte';
-	import IconBackground from '../../lib/ui/IconBackground.svelte';
 
 	let name = $state('');
 	let email = $state('');
@@ -36,87 +35,83 @@
 	];
 </script>
 
-<!-- Fun background with floating icons -->
-<IconBackground count={10} />
-<main>
-	<!-- Hero Section -->
-	<section class="hero">
-		<h1>Contact Paws & Pastries</h1>
-		<p>
-			Have a question, special order, or just want to say hello? Send us a message, and we’ll
-			get back to you as soon as possible!
-		</p>
-		<hr />
-	</section>
+<!-- Hero Section -->
+<section class="hero">
+	<h1>Contact Paws & Pastries</h1>
+	<p>
+		Have a question, special order, or just want to say hello? Send us a message, and we’ll get
+		back to you as soon as possible!
+	</p>
+	<hr />
+</section>
 
-	<!-- Contact Form -->
-	<section class="contact-form">
-		<h2>Get in Touch</h2>
-		<form onsubmit={(e) => submitForm(e)}>
-			<label for="name"><h3>Name:</h3></label>
-			<input type="text" id="name" bind:value={name} required />
+<!-- Contact Form -->
+<section class="contact-form">
+	<h2>Get in Touch</h2>
+	<form onsubmit={(e) => submitForm(e)}>
+		<label for="name"><h3>Name:</h3></label>
+		<input type="text" id="name" bind:value={name} required />
 
-			<label for="email"><h3>Email:</h3></label>
-			<input type="email" id="email" bind:value={email} required />
+		<label for="email"><h3>Email:</h3></label>
+		<input type="email" id="email" bind:value={email} required />
 
-			<label for="message"><h3>Message:</h3></label>
-			<textarea id="message" bind:value={message} rows="4" required></textarea>
+		<label for="message"><h3>Message:</h3></label>
+		<textarea id="message" bind:value={message} rows="4" required></textarea>
 
-			<Button onclick={() => {}} type="default">Send Message</Button>
-		</form>
-	</section>
-	<!-- Business Info -->
-	<section class="contact-info">
-		<h2>Our Bakery</h2>
-		<address class="contact-items">
-			<div class="contact-item">
-				<MapPin class="icon" />
-				<a
-					onclick={(e) => {
-						e.preventDefault();
-						alert('I told you.. this goes no where...');
-					}}
-					href="/this-goes-no-where-:)"
-				>
-					123 Pawsome Street, Bakery Town
-				</a>
-			</div>
-			<div class="contact-item">
-				<Phone class="icon" size={20} />
-				<a href="tel:555-123-4567">(555) 123-4567</a>
-			</div>
-			<div class="contact-item">
-				<Mail class="icon" />
-				<a href="mailto:woof@pawsandpastries.com">woof@pawsandpastries.com</a>
-			</div>
-		</address>
-	</section>
+		<Button onclick={() => {}} type="default">Send Message</Button>
+	</form>
+</section>
+<!-- Business Info -->
+<section class="contact-info">
+	<h2>Our Bakery</h2>
+	<address class="contact-items">
+		<div class="contact-item">
+			<MapPin class="icon" />
+			<a
+				onclick={(e) => {
+					e.preventDefault();
+					alert('I told you.. this goes no where...');
+				}}
+				href="/this-goes-no-where-:)"
+			>
+				123 Pawsome Street, Bakery Town
+			</a>
+		</div>
+		<div class="contact-item">
+			<Phone class="icon" size={20} />
+			<a href="tel:555-123-4567">(555) 123-4567</a>
+		</div>
+		<div class="contact-item">
+			<Mail class="icon" />
+			<a href="mailto:woof@pawsandpastries.com">woof@pawsandpastries.com</a>
+		</div>
+	</address>
+</section>
 
-	<!-- Google Map Embed -->
-	<section class="map">
-		<iframe
-			title="Not a real location"
-			src="https://maps-cdn.site123.com/include/globalMapDisplay.php?q=1103 Rose Street, La Crosse, WI, USA&z=15&l=en&ilfc="
-			width="100%"
-			height="300"
-			style="border:0;"
-			allowfullscreen
-			loading="lazy"
-		>
-		</iframe>
-	</section>
+<!-- Google Map Embed -->
+<section class="map">
+	<iframe
+		title="Not a real location"
+		src="https://maps-cdn.site123.com/include/globalMapDisplay.php?q=1103 Rose Street, La Crosse, WI, USA&z=15&l=en&ilfc="
+		width="100%"
+		height="300"
+		style="border:0;"
+		allowfullscreen
+		loading="lazy"
+	>
+	</iframe>
+</section>
 
-	<!-- FAQ Section -->
-	<section class="faq">
-		<h2>Frequently Asked Questions</h2>
-		{#each faqs as faq}
-			<div class="faq-item">
-				<h3>{faq.question}</h3>
-				<p>{faq.answer}</p>
-			</div>
-		{/each}
-	</section>
-</main>
+<!-- FAQ Section -->
+<section class="faq">
+	<h2>Frequently Asked Questions</h2>
+	{#each faqs as faq}
+		<div class="faq-item">
+			<h3>{faq.question}</h3>
+			<p>{faq.answer}</p>
+		</div>
+	{/each}
+</section>
 
 <style lang="postcss">
 	h1,
@@ -139,7 +134,7 @@
 	.hero {
 		text-align: center;
 		padding: 40px 20px;
-		font-size: 1.2rem;
+		font-size: 1.5rem;
 		font-weight: bold;
 	}
 

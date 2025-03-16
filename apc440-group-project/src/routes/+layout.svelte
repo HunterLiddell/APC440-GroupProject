@@ -5,6 +5,7 @@
 	import Footer from './footer.svelte';
 	import Header from './header.svelte';
 	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
+	import IconBackground from '$lib/ui/IconBackground.svelte';
 
 	let { children }: { children: Snippet } = $props();
 </script>
@@ -19,6 +20,8 @@
 
 <!-- All child pages under each route -->
 <main>
+	<!-- Absolute positioned background with floating icons -->
+	<IconBackground />
 	{@render children()}
 </main>
 

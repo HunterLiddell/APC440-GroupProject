@@ -3,7 +3,6 @@
 	import Button from '$lib/ui/Button.svelte';
 	import { CakeIcon, DogIcon, CatIcon, UserIcon } from 'lucide-svelte';
 	import { fade, fly } from 'svelte/transition';
-	import IconBackground from '../../lib/ui/IconBackground.svelte';
 	import { cubicInOut } from 'svelte/easing';
 	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
 	import { page } from '$app/state';
@@ -37,9 +36,6 @@
 		goto(`/menu?filter=${filter}`);
 	}
 </script>
-
-<!-- Absolute positioned background with floating icons -->
-<IconBackground />
 
 <!-- Title and filter options -->
 <section in:fade={{ duration: 800, easing: cubicInOut }}>
