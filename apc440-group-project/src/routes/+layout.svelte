@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import '../app.css';
 	import '../tailwind.css';
+	import "../output.css"
 	import Footer from './footer.svelte';
 	import Header from './header.svelte';
 	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
@@ -9,6 +10,9 @@
 
 	let { children }: { children: Snippet } = $props();
 </script>
+
+<!-- <link rel="stylesheet" href="/output.css" /> -->
+
 
 <!-- Global header -->
 <Header />
