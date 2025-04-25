@@ -1,10 +1,8 @@
-// src/lib/server/firebase-admin.ts
-import { env } from "$env/dynamic/private";
 import { initializeApp, applicationDefault, cert, getApps } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 
-const CREDS = env.SERVICE_ACCOUNT;
+const CREDS = process.env.SERVICE_ACCOUNT;
 
 // Only initialize once (important for dev server hot reload)
 if (getApps().length === 0) {
