@@ -3,7 +3,8 @@ import type { RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ request, cookies, url }) => {
 
-  const token = await request.text();
+  const {token} = await request.json();
+  console.log(token);
   const cookie = cookies.get('session_id');
   if (cookie) {
     return new Response('Cookie already exists', { status: 400 });
@@ -15,6 +16,7 @@ export const POST: RequestHandler = async ({ request, cookies, url }) => {
   cookies.set('__pawstoken', token, {
     path: '/', // Cookie is available on all paths
     domain: domain,
+    expires: new Date(Date.now() + 60 * 60 * 24 * 7), // Expires in 7 days
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
     secure: true, // Ensures the cookie is sent over HTTPS only
     sameSite: 'strict', // Prevents CSRF attacks

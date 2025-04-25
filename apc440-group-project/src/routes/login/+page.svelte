@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { invalidateAll } from "$app/navigation";
+	import { page } from "$app/state";
+	import { setSessionCookie } from "$lib/services/auth/cookies";
 	import { auth } from "$lib/services/auth/firebase";
 	import { createUserAsync } from "$lib/services/db/user";
 	import IconBackground from "$lib/ui/IconBackground.svelte";
@@ -10,12 +13,15 @@
   let error = $state('');
   let name = $state('');
 
+  $inspect(page.data.user);
+
   function login(email: string, password: string) {
     signInWithEmailAndPassword(auth, email, password)
-      .then((e) => {
+      .then(async (e) => {
         // Handle successful login
-        alert(`Logged in as ${email}`);
-        e.user
+        const token = await e.user.getIdToken();
+        await setSessionCookie(token);
+        invalidateAll();
       })
       .catch((err) => {
         // Handle error
@@ -27,7 +33,6 @@
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (e) => {
         // Handle successful signup
-        alert(`Account created for ${email}`);
         login(email, password);
         await createUserAsync(e.user, name)
       })
@@ -39,8 +44,13 @@
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
-    if (!email || !password || !name) {
+    if (!email || !password) {
       error = 'Please enter all fields!';
+      return;
+    }
+
+    if(mode == 'signup' && !name) {
+      error = 'Please enter a name!';
       return;
     }
 
