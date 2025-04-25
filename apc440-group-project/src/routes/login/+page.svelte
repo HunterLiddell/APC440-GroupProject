@@ -1,22 +1,54 @@
 <script lang="ts">
+	import { auth } from "$lib/services/auth/firebase";
+	import { createUserAsync } from "$lib/services/db/user";
 	import IconBackground from "$lib/ui/IconBackground.svelte";
+	import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-  let mode: 'login' | 'signup' = 'login';
-  let email = '';
-  let password = '';
-  let error = '';
+  let mode: 'login' | 'signup' = $state('login');
+  let email = $state('');
+  let password = $state('');
+  let error = $state('');
+  let name = $state('');
 
-  function submit() {
-    if (!email || !password) {
-      error = 'Please enter both fields!';
+  function login(email: string, password: string) {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((e) => {
+        // Handle successful login
+        alert(`Logged in as ${email}`);
+        e.user
+      })
+      .catch((err) => {
+        // Handle error
+        error = 'Invalid email or password';
+      });
+  }
+
+  async function createUser(email: string, password: string, name: string) {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (e) => {
+        // Handle successful signup
+        alert(`Account created for ${email}`);
+        login(email, password);
+        await createUserAsync(e.user, name)
+      })
+      .catch((err) => {
+        // Handle error
+        error = 'Error creating account, error: ' + err.message;
+      });
+  }
+
+  async function submit(e: SubmitEvent) {
+    e.preventDefault();
+    if (!email || !password || !name) {
+      error = 'Please enter all fields!';
       return;
     }
 
     error = '';
     if (mode === 'login') {
-      alert(`Logging in as ${email}`);
+      login(email, password);
     } else {
-      alert(`Creating account for ${email}`);
+      createUser(email, password, name);
     }
   }
 </script>
@@ -28,7 +60,15 @@
       {mode === 'login' ? '"Fresh treats. Furry bakers."' : '"One step closer to treats!"'}
     </p>
 
-    <form class="space-y-5" on:submit|preventDefault={submit}>
+    <form class="space-y-5" onsubmit={submit}>
+      {#if mode === 'signup'}
+        <input
+          type="text"
+          bind:value={name}
+          placeholder="Name"
+          class="w-full p-3 rounded-lg border border-pink-300 focus:outline-none focus:ring-2 focus:ring-rose-400"
+        />
+      {/if}
       <input
         type="email"
         bind:value={email}
@@ -55,12 +95,12 @@
     <p class="text-xs text-center text-pink-600 mt-6">
       {#if mode === 'login'}
         Don’t have an account?
-        <button class="underline ml-1" on:click={() => mode = 'signup'}>
+        <button class="underline ml-1" onclick={() => mode = 'signup'}>
           Create one
         </button>
       {:else}
         Already have an account?
-        <button class="underline ml-1" on:click={() => mode = 'login'}>
+        <button class="underline ml-1" onclick={() => mode = 'login'}>
           Log in
         </button>
       {/if}
