@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { auth } from "$lib/services/auth/firebase";
+	import { createUserAsync } from "$lib/services/db/user";
 	import IconBackground from "$lib/ui/IconBackground.svelte";
 	import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -7,34 +8,14 @@
   let email = $state('');
   let password = $state('');
   let error = $state('');
-
-  function setCookie() {
-    fetch("/api/set-cookie", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Handle successful cookie setting
-          console.log("Cookie set successfully");
-        } else {
-          // Handle error
-          console.error("Error setting cookie");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+  let name = $state('');
 
   function login(email: string, password: string) {
     signInWithEmailAndPassword(auth, email, password)
       .then((e) => {
         // Handle successful login
         alert(`Logged in as ${email}`);
+        e.user
       })
       .catch((err) => {
         // Handle error
@@ -42,12 +23,13 @@
       });
   }
 
-  function createUser(email: string, password: string) {
+  async function createUser(email: string, password: string, name: string) {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then(async (e) => {
         // Handle successful signup
         alert(`Account created for ${email}`);
         login(email, password);
+        await createUserAsync(e.user, name)
       })
       .catch((err) => {
         // Handle error
@@ -57,8 +39,8 @@
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
-    if (!email || !password) {
-      error = 'Please enter both fields!';
+    if (!email || !password || !name) {
+      error = 'Please enter all fields!';
       return;
     }
 
@@ -66,7 +48,7 @@
     if (mode === 'login') {
       login(email, password);
     } else {
-      createUser(email, password);
+      createUser(email, password, name);
     }
   }
 </script>
@@ -79,6 +61,14 @@
     </p>
 
     <form class="space-y-5" onsubmit={submit}>
+      {#if mode === 'signup'}
+        <input
+          type="text"
+          bind:value={name}
+          placeholder="Name"
+          class="w-full p-3 rounded-lg border border-pink-300 focus:outline-none focus:ring-2 focus:ring-rose-400"
+        />
+      {/if}
       <input
         type="email"
         bind:value={email}

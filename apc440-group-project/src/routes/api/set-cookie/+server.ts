@@ -1,8 +1,9 @@
 import type { RequestHandler } from "@sveltejs/kit";
 
 
-export const POST: RequestHandler = async ({ cookies, url }) => {
-//   const { cookies } = request;
+export const POST: RequestHandler = async ({ request, cookies, url }) => {
+
+  const token = await request.text();
   const cookie = cookies.get('session_id');
   if (cookie) {
     return new Response('Cookie already exists', { status: 400 });
@@ -11,7 +12,7 @@ export const POST: RequestHandler = async ({ cookies, url }) => {
   const domain = baseUrl == 'http://localhost:5173' ? 'localhost' : 'main.d9h26mhn1fmw4.amplifyapp.com';
 
   // Set a new cookie
-  cookies.set('session_id', 'your_session_id_value', {
+  cookies.set('__pawstoken', token, {
     path: '/', // Cookie is available on all paths
     domain: domain,
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
