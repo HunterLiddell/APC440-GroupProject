@@ -6,7 +6,8 @@ import { getFirestore } from "firebase-admin/firestore";
 // Only initialize once (important for dev server hot reload)
 if (getApps().length === 0) {
   initializeApp({
-    credential: applicationDefault() // cert("/Users/hunterliddell/Desktop/APC440-GroupProject/apc440-group-project/src/lib/services/auth/paws-and-pastries-service-account.json"),
+    credential: applicationDefault()
+    // credential: cert("/Users/hunterliddell/Desktop/APC440-GroupProject/apc440-group-project/src/lib/services/auth/paws-and-pastries-service-account.json"),
   });
 }
 

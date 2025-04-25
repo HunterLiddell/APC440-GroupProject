@@ -1,3 +1,5 @@
+import { collection, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+
 /**
  * Menu-item type.
  *
@@ -92,3 +94,43 @@ export const menuItems: MenuItem[] = [
 		category: 'humans'
 	}
 ];
+
+
+export async function createMenuItemAsync(item: MenuItem) {
+	return;
+	console.log('Creating menu item:', item);
+	const db = getFirestore();
+	const menuItemsRef = collection(db, 'menu-items');
+	const menuItemRef = doc(menuItemsRef, item.id);
+	await setDoc(menuItemRef, {
+		name: item.name,
+		price: item.price,
+		description: item.description,
+		image: item.image,
+		category: item.category,
+		createdAt: serverTimestamp(),
+		updatedAt: serverTimestamp()
+	}, { merge: true });
+}
+
+export async function getMenuItemsAsync(): Promise<MenuItem[]> {
+	const db = getFirestore();
+	const menuItemsRef = collection(db, 'menu-items');
+	const snapshot = await getDocs(menuItemsRef);
+	
+	const items: MenuItem[] = [];
+	snapshot.forEach((doc) => {
+		const data = doc.data();
+		const item: MenuItem = {
+			id: doc.id,
+			name: data.name,
+			price: data.price,
+			description: data.description,
+			image: data.image,
+			category: data.category
+		};
+		items.push(item);
+	});
+
+	return items;
+}

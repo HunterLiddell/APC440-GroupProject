@@ -1,8 +1,8 @@
-<!-- Card built for a menu item. Contains an image, title, price, description, and add to cart button.
+<!-- Card built for a menu item. Contains an image, title, price,$lib/services/db/menu-items cart button.
  @component -->
 
 <script lang="ts">
-	import type { MenuItem } from '$lib/services/menu-items';
+	import type { MenuItem } from '$lib/services/db/menu-items';
 	import { ShoppingCart } from 'lucide-svelte';
 	import Button from './Button.svelte';
 	import { cart } from './cart/Cart.svelte';

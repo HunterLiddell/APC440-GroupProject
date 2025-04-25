@@ -19,7 +19,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     const user = await getUserByIdAsync(decodedToken.uid);
-    console.log(user);
     if (!user) {
       event.locals.user = null;
       return resolve(event);

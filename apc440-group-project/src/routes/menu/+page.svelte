@@ -1,13 +1,22 @@
 <script lang="ts">
-	import { menuItems } from '$lib/services/menu-items';
-	import Button from '$lib/ui/Button.svelte';
+	import { createMenuItemAsync } from '$lib/services/db/menu-items';
 	import { CakeIcon, DogIcon, CatIcon, UserIcon } from 'lucide-svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
 	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
+	import { goto, replaceState } from '$app/navigation';
+	import Button from '$lib/ui/Button.svelte';
 
+	/**
+	 * @typedef Prop
+	 * @prop {PageData} data
+	 */
+
+	/** @type {Props} */
+	let { data } = $props();
+
+	let menuItems = data.menuItems;
 	/** Values to filter by */
 	type FilterType = 'all' | 'cats' | 'dogs' | 'humans';
 
@@ -33,7 +42,7 @@
 	 */
 	function setFilter(filter: FilterType) {
 		// Fire client-side navigation on the same page
-		goto(`/menu?filter=${filter}`);
+		goto(`/menu?filter=${filter}`, { replaceState: true });
 	}
 </script>
 
