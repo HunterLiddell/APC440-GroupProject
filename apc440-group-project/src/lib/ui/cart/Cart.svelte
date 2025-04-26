@@ -1,5 +1,5 @@
 <script module>
-	import type { MenuItem } from '$lib/services/db/menu-items';
+	import { type MenuItem } from '$lib/services/db/menu-items';
 
 	interface LineItem extends MenuItem {
 		quantity: number;
