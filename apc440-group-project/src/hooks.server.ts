@@ -1,5 +1,5 @@
 
-import { auth } from "$lib/services/auth/firebase-admin";
+import { getFirebaseAdminAuth } from "$lib/services/auth/firebase-admin";
 import { type UserData } from "$lib/services/db/user";
 import type { Handle } from "@sveltejs/kit";
 import { getFirestore } from "firebase-admin/firestore";
@@ -13,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (cookie) {
     // const t = await auth.(cookie);
 
-    const decodedToken = await auth.verifyIdToken(cookie);
+    const decodedToken = await getFirebaseAdminAuth().verifyIdToken(cookie);
 
     if (!decodedToken) {
       event.locals.user = null;

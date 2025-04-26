@@ -1,6 +1,7 @@
 import { initializeApp as initializeAdminApp, applicationDefault, cert, getApps  } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
+import { Amplify } from "aws-amplify";
 
 // let initialized = false;
 
@@ -22,7 +23,7 @@ import { getFirestore } from "firebase-admin/firestore";
 
 
 
-export function initAdminApp() {
+function initAdminApp() {
     const apps = getApps();
     if (apps.length > 0) {
         return apps[0];
@@ -40,6 +41,9 @@ export function initAdminApp() {
     return initializeAdminApp(config);
 }
 
-export const firebaseApp = initAdminApp();
-export const auth = getAuth(firebaseApp);
+export function getFirebaseAdminAuth() {
+    return getAuth(initAdminApp());
+    
+}
+
 

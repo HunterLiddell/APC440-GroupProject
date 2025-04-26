@@ -22,6 +22,7 @@ export async function createUserAsync(user: User, name: string) {
 
 export async function getUserByIdAsync(id: string): Promise<UserData | null> {
     const db = getFirestore();
+    
     const userRef = doc(db, "users", id);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
