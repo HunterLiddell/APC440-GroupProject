@@ -7,12 +7,14 @@
 	import Header from './header.svelte';
 	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
 	import IconBackground from '$lib/ui/IconBackground.svelte';
+	import { initApp } from '$lib/services/auth/firebase';
+
+	initApp();
 
 	let { children }: { children: Snippet } = $props();
 </script>
 
 <!-- <link rel="stylesheet" href="/output.css" /> -->
-
 
 <!-- Global header -->
 <Header />

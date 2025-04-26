@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { createMenuItemAsync } from '$lib/services/db/menu-items';
+	import {
+		createMenuItemAsync,
+		getMenuItemsAsync,
+		type MenuItem
+	} from '$lib/services/db/menu-items';
 	import { CakeIcon, DogIcon, CatIcon, UserIcon } from 'lucide-svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
@@ -7,6 +11,7 @@
 	import { page } from '$app/state';
 	import { goto, replaceState } from '$app/navigation';
 	import Button from '$lib/ui/Button.svelte';
+	import { onMount } from 'svelte';
 
 	/**
 	 * @typedef Prop
@@ -16,7 +21,13 @@
 	/** @type {Props} */
 	let { data } = $props();
 
-	let menuItems = data.menuItems;
+	let menuItems: MenuItem[] = $state([]);
+
+	onMount(async () => {
+		// Fetch menu items from the database
+		menuItems = await getMenuItemsAsync();
+	});
+
 	/** Values to filter by */
 	type FilterType = 'all' | 'cats' | 'dogs' | 'humans';
 

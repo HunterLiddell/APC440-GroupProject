@@ -4,8 +4,5 @@ import { getMenuItemsAsync } from "$lib/services/db/menu-items";
 
 export const load: PageServerLoad = async ({ locals }) => {
 
-    const menuItems = await getMenuItemsAsync();
-    return {
-        menuItems
-    }
+    
 }
