@@ -1,5 +1,4 @@
 <script module>
-	import { SvelteMap } from 'svelte/reactivity';
 	interface LineItem extends MenuItem {
 		quantity: number;
 	}
@@ -81,6 +80,7 @@
  Closing animation is the reverse of the opening. -->
 <script lang="ts">
 	import { X, ShoppingCart, Trash2 } from 'lucide-svelte';
+	import { SvelteMap } from 'svelte/reactivity';
 	import { on } from 'svelte/events';
 	import { onDestroy, onMount } from 'svelte';
 	import type { MenuItem } from '$lib/services/db/menu-items';
