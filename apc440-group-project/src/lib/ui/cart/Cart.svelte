@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script module>
 	import type { MenuItem } from '$lib/services/db/menu-items';
 
 	interface LineItem extends MenuItem {
@@ -80,7 +80,7 @@
 <!-- Menu that overlays everything on the screen. It opens and closes in the top right of the screen.
  Opening animation starts as a small square, grows left until a certain point, then grows down until another point.
  Closing animation is the reverse of the opening. -->
-<script>
+<script lang="ts">
 	import { X, ShoppingCart, Trash2 } from 'lucide-svelte';
 	import { SvelteMap } from 'svelte/reactivity';
 	import { on } from 'svelte/events';
