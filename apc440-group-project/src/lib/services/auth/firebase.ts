@@ -28,6 +28,7 @@ export function initApp() {
 export let firebaseBrowserApp: FirebaseApp;
 export let auth: Auth;
 
+
 function initializeFirebase() {
     // Ensure Firebase is initialized before trying to getAuth
     firebaseBrowserApp = initApp();

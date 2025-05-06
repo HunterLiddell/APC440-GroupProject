@@ -85,6 +85,7 @@
 	import { SvelteMap } from 'svelte/reactivity';
 	import { on } from 'svelte/events';
 	import { onDestroy, onMount } from 'svelte';
+	import Button from '../Button.svelte';
 
 	let activeCloseAnimation = $state(false);
 
@@ -176,7 +177,7 @@
 			</div>
 		{:else}
 			<div
-				style="background-color: rgba(0,0,0,0.05); width: 100%; height: 100%; display: flex; aligh-items: center; text-align: center;"
+				style="background-color: rgba(0,0,0,0.05); width: 100%; height: 100%; display: flex; align-items: center; text-align: center;"
 			>
 				<p style="margin: auto; font-weight: 600">No items in your cart</p>
 			</div>
@@ -186,6 +187,9 @@
 		<span style="margin-left: auto; margin-top: auto;"
 			>Subtotal: {cart.subtotal.toFixed(2)}</span
 		>
+		<Button href="/checkout" type="outline" onclick={handleClose}>
+			<span class="w-full text-center">Checkout</span>
+		</Button>
 	</div>
 </div>
 
@@ -194,7 +198,7 @@
 		padding: 12px 0 0 0;
 		text-align: right;
 		border-top: 1px lightgray solid;
-		height: 50px;
+		height: 100px;
 		width: 100%;
 		bottom: 0;
 	}

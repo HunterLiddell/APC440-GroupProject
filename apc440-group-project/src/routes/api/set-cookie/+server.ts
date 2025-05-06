@@ -10,6 +10,7 @@ export const POST: RequestHandler = async ({ request, cookies, url }) => {
     return new Response('Cookie already exists', { status: 400 });
   }
   const baseUrl = url.origin;
+  console.log(baseUrl);
   const domain = baseUrl == 'http://localhost:5173' ? 'localhost' : 'main.d9h26mhn1fmw4.amplifyapp.com';
 
   // Set a new cookie
