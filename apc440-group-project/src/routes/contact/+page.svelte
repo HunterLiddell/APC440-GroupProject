@@ -1,17 +1,28 @@
 <script lang="ts">
+	import { page } from '$app/state';
+	import { sendMessage } from '$lib/services/db/contact';
 	import Button from '$lib/ui/Button.svelte';
+	import { Timestamp } from 'firebase/firestore';
 	import { Mail, MapPin, Phone } from 'lucide-svelte';
 
-	let name = $state('');
-	let email = $state('');
+	let name = $state(page.data?.user?.name || '');
+	let email = $state(page.data?.user?.email || '');
 	let message = $state('');
 
 	/**
 	 * Submits the form
 	 */
-	function submitForm(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+	async function submitForm(e: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
 		e.preventDefault();
-		alert(`Thank you, ${name}! We'll get back to you soon.`);
+
+		await sendMessage({
+			name: name,
+			email: email,
+			message: message,
+			status: 'Pending',
+			userId: page.data?.user?.id,
+			date: Timestamp.now()
+		});
 	}
 
 	// List of FAQs
@@ -50,10 +61,24 @@
 	<h2>Get in Touch</h2>
 	<form onsubmit={(e) => submitForm(e)}>
 		<label for="name"><h3>Name:</h3></label>
-		<input type="text" id="name" bind:value={name} required />
+		<input
+			type="text"
+			id="name"
+			bind:value={name}
+			class:disabled={page.data?.user != null}
+			disabled={page.data?.user != null}
+			required
+		/>
 
 		<label for="email"><h3>Email:</h3></label>
-		<input type="email" id="email" bind:value={email} required />
+		<input
+			type="email"
+			id="email"
+			bind:value={email}
+			class:disabled={page.data?.user != null}
+			disabled={page.data?.user != null}
+			required
+		/>
 
 		<label for="message"><h3>Message:</h3></label>
 		<textarea id="message" bind:value={message} rows="4" required></textarea>
@@ -136,6 +161,10 @@
 		padding: 40px 20px;
 		font-size: 1.5rem;
 		font-weight: bold;
+	}
+
+	.disabled {
+		background-color: #f1f1f1;
 	}
 
 	/* Contact Form */

@@ -120,6 +120,7 @@
 
 	hr {
 		width: clamp(300px, 80%, 800px);
+		margin: 0 auto;
 	}
 
 	.container {

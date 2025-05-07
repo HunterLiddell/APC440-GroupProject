@@ -11,6 +11,7 @@ export interface MenuItem {
 	price: number;
 	description: string;
 	image: string;
+	quantity?: number;
 	category: 'cats' | 'dogs' | 'humans';
 }
 

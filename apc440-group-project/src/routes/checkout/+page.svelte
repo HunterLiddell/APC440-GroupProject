@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import type { MenuItem } from '$lib/services/db/menu-items';
 	import { purchaseOrder, type Address, type Order } from '$lib/services/db/orders';
@@ -77,7 +78,6 @@
 		const isZipValid = validateField('zipCode', shippingInfo.zipCode);
 
 		if (isCardValid && isExpiryValid && isCvvValid && isZipValid) {
-			alert(`Order placed for ${shippingInfo.firstName} ${shippingInfo.lastName}`);
 			const items: MenuItem[] = [];
 			cart.getLineItems().forEach(([_, item]) => {
 				items.push(item);
@@ -90,10 +90,12 @@
 				createdAt: Timestamp.now(),
 				id: '',
 				total: cart.subtotal,
+				status: 'Pending',
 				userId: page.data.user.id
 			};
 
-			await purchaseOrder(order);
+			const id = await purchaseOrder(order);
+			goto(`/receipt/${id}`);
 		}
 	}
 </script>
