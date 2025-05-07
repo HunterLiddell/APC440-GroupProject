@@ -3,16 +3,24 @@
 	import { page } from '$app/state';
 	import { getMessagesByUser } from '$lib/services/db/contact';
 	import { getOrders } from '$lib/services/db/orders';
+	import type { UserData } from '$lib/services/db/user';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 	import type { Timestamp } from 'firebase/firestore';
+	import { onMount } from 'svelte';
 	import { innerWidth } from 'svelte/reactivity/window';
 
 	import { scale } from 'svelte/transition';
 
-	let user = page.data.user;
+	onMount(async () => {
+		user = await fetchUserFromCookie();
+		console.log('User data:', user);
 
-	if (!page.data.user) {
-		goto('/login?redirect=/checkout');
-	}
+		if (!user) {
+			goto('/login?redirect=/checkout');
+		}
+	});
+
+	let user: UserData = $state(null);
 
 	let selectedOrder = $state(null);
 
@@ -78,14 +86,14 @@
 <div class="account-container">
 	<header class="account-header">
 		<div>
-			<h1>{user.name}</h1>
-			<p>{user.email}</p>
+			<h1>{user?.name}</h1>
+			<p>{user?.email}</p>
 		</div>
 	</header>
 
 	<section class="account-section">
 		<h2>My Orders</h2>
-		{#await getOrders(user.id) then orders}
+		{#await getOrders(user?.id) then orders}
 			<table class="account-table">
 				<thead>
 					<tr>
@@ -115,7 +123,7 @@
 
 	<section class="account-section">
 		<h2>Messages</h2>
-		{#await getMessagesByUser(user.id) then messages}
+		{#await getMessagesByUser(user?.id) then messages}
 			<table class="account-table">
 				<thead>
 					<tr>

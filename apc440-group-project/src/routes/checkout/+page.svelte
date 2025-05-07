@@ -1,14 +1,26 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { firebaseBrowserApp } from '$lib/services/auth/firebase';
 	import type { MenuItem } from '$lib/services/db/menu-items';
 	import { purchaseOrder, type Address, type Order } from '$lib/services/db/orders';
+	import type { UserData } from '$lib/services/db/user';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { Timestamp } from 'firebase/firestore';
+	import { getContext, onMount } from 'svelte';
 
-	if (!page.data.user) {
-		goto('/login?redirect=/checkout');
-	}
+	let user: UserData = $state(null);
+
+	onMount(async () => {
+		const user = await fetchUserFromCookie();
+		console.log('User data:', user);
+
+		if (!user) {
+			goto('/login?redirect=/checkout');
+		}
+	});
+
 	let shippingInfo: Address = $state({
 		firstName: '',
 		lastName: '',
@@ -94,7 +106,7 @@
 				id: '',
 				total: cart.subtotal,
 				status: 'Pending',
-				userId: page.data.user.id
+				userId: user?.id
 			};
 
 			const id = await purchaseOrder(order);

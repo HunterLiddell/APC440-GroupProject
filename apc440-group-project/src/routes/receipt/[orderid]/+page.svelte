@@ -3,23 +3,26 @@
 	import { page } from '$app/state';
 	import { getOrderById, type Order } from '$lib/services/db/orders';
 	import type { UserData } from '$lib/services/db/user';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 	import { onMount } from 'svelte';
 
 	onMount(async () => {
+		const user = await fetchUserFromCookie();
+		console.log('User data:', user);
 		const orderId = page.url.pathname.split('/')[2];
 		console.log('Order ID:', orderId);
 
 		// Fetch the order details from the database using the orderId
 		const orderById = await getOrderById(orderId);
 
-		if (!orderById) {
+		if (!orderById || !user) {
 			goto('/myaccount');
 		}
 		order = orderById;
 	});
 
 	let order: Order = $state();
-	let user: UserData = page.data.user;
+	let user: UserData = $state();
 
 	function formatDate(timestamp) {
 		console.log('Timestamp:', timestamp);
@@ -39,7 +42,7 @@
 		<p><strong>Order ID:</strong> {order?.id}</p>
 		<p><strong>Date:</strong> {formatDate(order?.createdAt)}</p>
 		<p><strong>Status:</strong> <span class="status {order?.status}">{order?.status}</span></p>
-		<p><strong>Email:</strong> {user.email}</p>
+		<p><strong>Email:</strong> {user?.email}</p>
 	</div>
 
 	<table class="receipt-table">
@@ -69,7 +72,7 @@
 		</tfoot>
 	</table>
 
-	<p class="footer">Thank you for your order, {user.name}! 🐾</p>
+	<p class="footer">Thank you for your order, {user?.name}! 🐾</p>
 </div>
 
 <style>
