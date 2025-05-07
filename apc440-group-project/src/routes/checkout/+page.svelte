@@ -6,6 +6,9 @@
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { Timestamp } from 'firebase/firestore';
 
+	if (!page.data.user) {
+		goto('/login?redirect=/checkout');
+	}
 	let shippingInfo: Address = $state({
 		firstName: '',
 		lastName: '',

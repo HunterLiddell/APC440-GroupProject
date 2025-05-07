@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { getMessagesByUser } from '$lib/services/db/contact';
 	import { getOrders } from '$lib/services/db/orders';
@@ -8,6 +9,10 @@
 	import { scale } from 'svelte/transition';
 
 	let user = page.data.user;
+
+	if (!page.data.user) {
+		goto('/login?redirect=/checkout');
+	}
 
 	let selectedOrder = $state(null);
 

@@ -1,8 +1,25 @@
 <script lang="ts">
-	let { data } = $props();
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
+	import { getOrderById, type Order } from '$lib/services/db/orders';
+	import type { UserData } from '$lib/services/db/user';
+	import { onMount } from 'svelte';
 
-	let order = data.order;
-	let user = data.user;
+	onMount(async () => {
+		const orderId = page.url.pathname.split('/')[2];
+		console.log('Order ID:', orderId);
+
+		// Fetch the order details from the database using the orderId
+		const orderById = await getOrderById(orderId);
+
+		if (!orderById) {
+			goto('/myaccount');
+		}
+		order = orderById;
+	});
+
+	let order: Order = $state();
+	let user: UserData = page.data.user;
 
 	function formatDate(timestamp) {
 		console.log('Timestamp:', timestamp);
@@ -19,9 +36,9 @@
 	<h1>Order Receipt</h1>
 
 	<div class="summary">
-		<p><strong>Order ID:</strong> {order.id}</p>
-		<p><strong>Date:</strong> {formatDate(order.createdAt)}</p>
-		<p><strong>Status:</strong> <span class="status {order.status}">{order.status}</span></p>
+		<p><strong>Order ID:</strong> {order?.id}</p>
+		<p><strong>Date:</strong> {formatDate(order?.createdAt)}</p>
+		<p><strong>Status:</strong> <span class="status {order?.status}">{order?.status}</span></p>
 		<p><strong>Email:</strong> {user.email}</p>
 	</div>
 
@@ -35,7 +52,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each order.items as item}
+			{#each order?.items as item}
 				<tr>
 					<td>{item.name}</td>
 					<td>${item.price.toFixed(2)}</td>
@@ -47,7 +64,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="3"><strong>Grand Total</strong></td>
-				<td>{order.total}</td>
+				<td>{order?.total}</td>
 			</tr>
 		</tfoot>
 	</table>
