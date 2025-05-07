@@ -9,7 +9,7 @@
 	import { cubicInOut } from 'svelte/easing';
 	import MenuItemCard from '$lib/ui/MenuItemCard.svelte';
 	import { page } from '$app/state';
-	import { goto, replaceState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import Button from '$lib/ui/Button.svelte';
 	import { onMount } from 'svelte';
 

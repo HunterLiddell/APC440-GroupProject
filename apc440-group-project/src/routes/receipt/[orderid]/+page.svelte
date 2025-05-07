@@ -8,9 +8,7 @@
 
 	onMount(async () => {
 		const user = await fetchUserFromCookie();
-		console.log('User data:', user);
 		const orderId = page.url.pathname.split('/')[2];
-		console.log('Order ID:', orderId);
 
 		// Fetch the order details from the database using the orderId
 		const orderById = await getOrderById(orderId);

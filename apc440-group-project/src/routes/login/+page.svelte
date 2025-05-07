@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { goto, invalidateAll } from '$app/navigation';
-	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import { setSessionCookie } from '$lib/services/auth/cookies';
 	import { auth } from '$lib/services/auth/firebase';
 	import { createUserAsync } from '$lib/services/db/user';
@@ -13,20 +12,15 @@
 	let error = $state('');
 	let name = $state('');
 
-	$inspect(page.data.user);
-	$inspect(auth);
-
 	function login(email: string, password: string) {
 		signInWithEmailAndPassword(auth, email, password)
 			.then(async (e) => {
 				// Handle successful login
 				const token = await e.user.getIdToken();
 				await setSessionCookie(token);
-				await invalidateAll();
-				const redirect = page.url.searchParams.get('redirect');
-				console.log('redirect', redirect);
+				const params = new URLSearchParams(window.location.search);
+				const redirect = params.get('redirect');
 				if (redirect) {
-					console.log('redirecting to', redirect);
 					goto(redirect);
 				} else {
 					goto('/');

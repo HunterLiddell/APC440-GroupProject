@@ -1,12 +1,22 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import { sendMessage } from '$lib/services/db/contact';
+	import type { UserData } from '$lib/services/db/user';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 	import Button from '$lib/ui/Button.svelte';
 	import { Timestamp } from 'firebase/firestore';
 	import { Mail, MapPin, Phone } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
-	let name = $state(page.data?.user?.name || '');
-	let email = $state(page.data?.user?.email || '');
+	let user: UserData = $state();
+
+	onMount(async () => {
+		user = await fetchUserFromCookie();
+		name = user?.name || '';
+		email = user?.email || '';
+	});
+
+	let name = $state('');
+	let email = $state('');
 	let message = $state('');
 
 	/**
@@ -20,7 +30,7 @@
 			email: email,
 			message: message,
 			status: 'Pending',
-			userId: page.data?.user?.id,
+			userId: user?.id,
 			date: Timestamp.now()
 		});
 	}
@@ -65,8 +75,8 @@
 			type="text"
 			id="name"
 			bind:value={name}
-			class:disabled={page.data?.user != null}
-			disabled={page.data?.user != null}
+			class:disabled={user != null}
+			disabled={user != null}
 			required
 		/>
 
@@ -75,8 +85,8 @@
 			type="email"
 			id="email"
 			bind:value={email}
-			class:disabled={page.data?.user != null}
-			disabled={page.data?.user != null}
+			class:disabled={user != null}
+			disabled={user != null}
 			required
 		/>
 
