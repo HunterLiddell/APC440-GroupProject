@@ -10,7 +10,7 @@ export async function GET({ cookies }) {
 	try {
 		const decoded = await getFirebaseAdminAuth().verifyIdToken(token);
 		const doc = await getFirestore().doc(`users/${decoded.uid}`).get();
-
+        console.log('doc', doc);
 		if (!doc.exists) return json({ user: null });
 
 		return json({ user: { id: doc.id, ...(doc.data() ?? {}) } });

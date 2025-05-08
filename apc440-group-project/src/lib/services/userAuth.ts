@@ -1,4 +1,6 @@
-export async function fetchUserFromCookie() {
+import type { UserData } from "./db/user";
+
+export async function fetchUserFromCookie(): Promise<UserData> {
     const json = await fetch('/api/get-user', {
         method: 'GET',
         headers: {

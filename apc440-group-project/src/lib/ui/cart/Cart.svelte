@@ -1,13 +1,7 @@
 <script module>
 	import { type MenuItem } from '$lib/services/db/menu-items';
 
-	interface LineItem extends MenuItem {
-		quantity: number;
-	}
-
 	class Cart {
-		constructor() {}
-
 		#open: boolean = $state(false);
 		#lineItems: Map<string, LineItem> = new SvelteMap();
 
@@ -55,10 +49,19 @@
 				// Insert into map
 				this.#lineItems.set(product.id, statedItem);
 			}
+
+			// Update cache
+			this.#updateCache();
 		};
 
 		/** Removes a product from the cart */
-		remove = (productId: string) => this.#lineItems.delete(productId);
+		remove = (productId: string) => {
+			// Remove line item
+			this.#lineItems.delete(productId);
+
+			// Update cache
+			this.#updateCache();
+		};
 
 		/** Updates a line items quantity to the given value */
 		updateQuantity = (newQuantity: number, productId: string) => {
@@ -71,6 +74,41 @@
 
 			// Update quantity
 			lineitem.quantity = quantity;
+
+			// Update cache
+			this.#updateCache();
+		};
+
+		/** Overrides the carts contents with the given items */
+		override = (items: LineItem[]) => {
+			this.#lineItems.clear();
+
+			items.forEach((item) => {
+				this.add(item);
+				this.updateQuantity(item.quantity, item.id);
+			});
+			this.close();
+		};
+
+		/** Clears the cart */
+		clear = () => {
+			// Clear items
+			this.#lineItems.clear();
+			// Update cache
+			this.#updateCache();
+			// CLose menu
+			this.close();
+		};
+
+		/** Updates local storage & caches to the database */
+		#updateCache = async () => {
+			const items: LineItem[] = [];
+			this.#lineItems.forEach((item) => {
+				items.push(item);
+			});
+			localstorage.saveCart(items);
+			const user = await fetchUserFromCookie();
+			if (user) updateCachedCart(user.id, items);
 		};
 	}
 
@@ -86,6 +124,9 @@
 	import { on } from 'svelte/events';
 	import { onDestroy, onMount } from 'svelte';
 	import Button from '../Button.svelte';
+	import { localstorage } from '$lib/services/localstorage';
+	import { updateCachedCart, type LineItem } from '$lib/services/db/cart';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 
 	let activeCloseAnimation = $state(false);
 

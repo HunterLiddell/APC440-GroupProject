@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
 	import '../tailwind.css';
 	import Footer from './footer.svelte';
@@ -7,10 +7,28 @@
 	import Cart, { cart } from '$lib/ui/cart/Cart.svelte';
 	import IconBackground from '$lib/ui/IconBackground.svelte';
 	import { initApp } from '$lib/services/auth/firebase';
+	import { getLocalstorageCart } from '$lib/services/localstorage';
+	import { getCachedCart } from '$lib/services/db/cart';
+	import { fetchUserFromCookie } from '$lib/services/userAuth';
 
 	initApp();
 
 	let { children }: { children: Snippet } = $props();
+
+	onMount(async () => {
+		const localStorageCart = getLocalstorageCart();
+		if (localStorageCart) {
+			console.log('FOUND CART');
+			cart.override(localStorageCart);
+			return;
+		}
+		console.log('NO CART');
+		const user = await fetchUserFromCookie();
+		if (!user) return;
+		const cachedCart = await getCachedCart(user.id);
+		console.log('FOUND DB CART', cachedCart);
+		if (cachedCart && cachedCart.items?.length > 0) cart.override(cachedCart.items);
+	});
 </script>
 
 <!-- Global header -->
