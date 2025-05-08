@@ -1,5 +1,5 @@
 import type { User } from "firebase/auth";
-import { doc, getDoc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, serverTimestamp, setDoc, Timestamp } from "firebase/firestore";
 
 export interface UserData {
     token: string;
@@ -16,7 +16,7 @@ export async function createUserAsync(user: User, name: string) {
   await setDoc(userRef, {
     name: name,
     email: user.email,
-    createdAt: serverTimestamp(),
+    createdAt: Timestamp.now(),
   }, { merge: true });
 }
 

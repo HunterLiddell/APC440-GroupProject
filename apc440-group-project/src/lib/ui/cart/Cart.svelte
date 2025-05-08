@@ -83,7 +83,7 @@
 		override = (items: LineItem[]) => {
 			this.#lineItems.clear();
 
-			items.forEach((item) => {
+			items?.forEach((item) => {
 				this.add(item);
 				this.updateQuantity(item.quantity, item.id);
 			});

@@ -18,7 +18,8 @@ export const getCachedCart = async (userId: string): Promise<CachedCart | null> 
     if(!cartSnapshot.exists) return null;
 
     const cartData = cartSnapshot.data() as CachedCart;
-
+    
+    if(!cartData) return null;
     return {
         items: cartData.items,
         userId: cartData.userId,

@@ -6,7 +6,11 @@
 	import { createUserAsync } from '$lib/services/db/user';
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import IconBackground from '$lib/ui/IconBackground.svelte';
-	import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+	import {
+		createUserWithEmailAndPassword,
+		signInWithEmailAndPassword,
+		type UserCredential
+	} from 'firebase/auth';
 
 	let mode: 'login' | 'signup' = $state('login');
 	let email = $state('');
@@ -17,20 +21,7 @@
 	function login(email: string, password: string) {
 		signInWithEmailAndPassword(auth, email, password)
 			.then(async (e) => {
-				// Handle successful login
-				const token = await e.user.getIdToken();
-				await setSessionCookie(token);
-
-				const cachedCart = await getCachedCart(e.user.uid);
-				if (cachedCart && cachedCart.items?.length > 0) cart.override(cachedCart.items);
-
-				const params = new URLSearchParams(window.location.search);
-				const redirect = params.get('redirect');
-				if (redirect) {
-					goto(redirect);
-				} else {
-					goto('/');
-				}
+				await userSetup(e);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -42,14 +33,35 @@
 	async function createUser(email: string, password: string, name: string) {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(async (e) => {
-				// Handle successful signup
-				login(email, password);
 				await createUserAsync(e.user, name);
+				await userSetup(e);
 			})
 			.catch((err) => {
 				// Handle error
 				error = 'Error creating account, error: ' + err.message;
 			});
+	}
+
+	/**
+	 * Sets up the environment for our user
+	 * Redirects to a redirect param or homepage
+	 */
+	async function userSetup(e: UserCredential) {
+		// Handle successful login
+		const token = await e.user.getIdToken();
+		await setSessionCookie(token);
+
+		const cachedCart = await getCachedCart(e.user.uid);
+		if (cachedCart && cachedCart?.items?.length > 0) cart.override(cachedCart?.items);
+
+		console.log('AFTER');
+		const params = new URLSearchParams(window.location.search);
+		const redirect = params.get('redirect');
+		if (redirect) {
+			goto(redirect);
+		} else {
+			goto('/');
+		}
 	}
 
 	async function submit(e: SubmitEvent) {
