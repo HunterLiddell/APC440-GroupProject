@@ -99,7 +99,6 @@ export const menuItems: MenuItem[] = [
 
 export async function createMenuItemAsync(item: MenuItem) {
 	return;
-	console.log('Creating menu item:', item);
 	const db = getFirestore();
 	const menuItemsRef = collection(db, 'menu-items');
 	const menuItemRef = doc(menuItemsRef, item.id);

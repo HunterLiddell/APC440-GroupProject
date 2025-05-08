@@ -2,7 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { setSessionCookie } from '$lib/services/auth/cookies';
 	import { auth } from '$lib/services/auth/firebase';
+	import { getCachedCart } from '$lib/services/db/cart';
 	import { createUserAsync } from '$lib/services/db/user';
+	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import IconBackground from '$lib/ui/IconBackground.svelte';
 	import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -18,6 +20,10 @@
 				// Handle successful login
 				const token = await e.user.getIdToken();
 				await setSessionCookie(token);
+
+				const cachedCart = await getCachedCart(e.user.uid);
+				if (cachedCart && cachedCart.items?.length > 0) cart.override(cachedCart.items);
+
 				const params = new URLSearchParams(window.location.search);
 				const redirect = params.get('redirect');
 				if (redirect) {

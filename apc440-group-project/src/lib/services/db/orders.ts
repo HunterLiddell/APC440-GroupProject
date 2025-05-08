@@ -31,7 +31,6 @@ export const purchaseOrder = async (order: Order) => {
     const db = getFirestore();
     const orderRef = doc(collection(db, 'orders'));
     await setDoc(orderRef, order);
-    console.log('Order created:', orderRef.id);
 
     return orderRef.id;
 }

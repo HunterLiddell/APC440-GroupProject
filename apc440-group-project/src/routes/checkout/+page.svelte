@@ -14,7 +14,6 @@
 
 	onMount(async () => {
 		const user = await fetchUserFromCookie();
-		console.log('User data:', user);
 
 		if (!user) {
 			goto('/login?redirect=/checkout');

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
+	import { auth } from '$lib/services/auth/firebase';
 	import { getMessagesByUser } from '$lib/services/db/contact';
 	import { getOrders } from '$lib/services/db/orders';
 	import type { UserData } from '$lib/services/db/user';
 	import { fetchUserFromCookie } from '$lib/services/userAuth';
-	import type { Timestamp } from 'firebase/firestore';
+	import Button from '$lib/ui/Button.svelte';
+	import { cart } from '$lib/ui/cart/Cart.svelte';
+	import { signOut } from 'firebase/auth';
+	import { type Timestamp } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 	import { innerWidth } from 'svelte/reactivity/window';
 
@@ -13,10 +16,9 @@
 
 	onMount(async () => {
 		user = await fetchUserFromCookie();
-		console.log('User data:', user);
 
 		if (!user) {
-			goto('/login?redirect=/checkout');
+			goto('/login?redirect=/myaccount');
 		}
 	});
 
@@ -34,13 +36,26 @@
 
 	// Format timestamps to human-readable strings
 	function formatDate(timestamp: Timestamp) {
-		console.log('Timestamp:', timestamp);
 		if (!timestamp) return '';
 		return new Intl.DateTimeFormat('en-US', {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric'
 		}).format(timestamp.toDate());
+	}
+
+	async function logout() {
+		await fetch('/api/clear-user', {
+			method: 'POST'
+		});
+
+		await signOut(auth);
+
+		cart.clear();
+
+		await fetchUserFromCookie();
+
+		goto('/');
 	}
 </script>
 
@@ -85,9 +100,14 @@
 
 <div class="account-container">
 	<header class="account-header">
-		<div>
-			<h1>{user?.name}</h1>
-			<p>{user?.email}</p>
+		<div class="flex w-full justify-between items-center">
+			<div>
+				<h1>{user?.name}</h1>
+				<p>{user?.email}</p>
+			</div>
+			<div>
+				<Button onclick={logout}>Logout</Button>
+			</div>
 		</div>
 	</header>
 

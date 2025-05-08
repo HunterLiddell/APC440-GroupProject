@@ -23,7 +23,6 @@
 	let user: UserData = $state();
 
 	function formatDate(timestamp) {
-		console.log('Timestamp:', timestamp);
 		if (!timestamp) return '';
 		return new Intl.DateTimeFormat('en-US', {
 			year: 'numeric',

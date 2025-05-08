@@ -1,3 +1,4 @@
+import { writable, type Writable } from "svelte/store";
 import type { UserData } from "./db/user";
 
 export async function fetchUserFromCookie(): Promise<UserData> {
@@ -8,6 +9,8 @@ export async function fetchUserFromCookie(): Promise<UserData> {
         }
     });
     const data = await json.json();
-    console.log('data', data);
+    userStore.set(data.user);
     return data.user;
 }
+
+export let userStore: Writable<UserData> = writable();

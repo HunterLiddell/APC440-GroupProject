@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { UserData } from '$lib/services/db/user';
+	import { fetchUserFromCookie, userStore } from '$lib/services/userAuth';
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { ShoppingBag } from 'lucide-svelte';
 	import { onMount } from 'svelte';
@@ -16,11 +18,19 @@
 	/** Close the crawer */
 	const closeDrawer = () => (showDrawer = false);
 
-	onMount(() => {
+	onMount(async () => {
 		// Close the drawer if the user scrolls
 		on(window, 'scroll', () => {
 			closeDrawer();
 		});
+
+		await fetchUserFromCookie();
+	});
+
+	let user: UserData = $state();
+
+	userStore.subscribe((u) => {
+		user = u;
 	});
 </script>
 
@@ -58,6 +68,11 @@
 					<a href="/meet-the-bakers">Meet the Bakers</a>
 					<a href="/behind-the-scenes">Behind the Scenes</a>
 					<a href="/contact">Contact</a>
+					{#if user}
+						<a href="/myaccount">My Account</a>
+					{:else}
+						<a href="/myaccount">Login</a>
+					{/if}
 				</nav>
 			{/if}
 
@@ -80,6 +95,11 @@
 					<a onclick={closeDrawer} href="/meet-the-bakers">Meet the Bakers</a>
 					<a onclick={closeDrawer} href="/behind-the-scenes">Behind the Scenes</a>
 					<a onclick={closeDrawer} href="/contact">Contact</a>
+					{#if user}
+						<a onclick={closeDrawer} href="/myaccount">My Account</a>
+					{:else}
+						<a onclick={closeDrawer} href="/myaccount">Login</a>
+					{/if}
 				</nav>
 			</div>
 		{/if}

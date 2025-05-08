@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
 	import { getAllActiveMessages, type ContactMessage } from '$lib/services/db/contact';
 	import {
 		getAllActiveOrders,
@@ -13,7 +12,6 @@
 
 	// Format timestamps to human-readable strings
 	function formatDate(timestamp: Timestamp) {
-		console.log('Timestamp:', timestamp);
 		if (!timestamp) return '';
 		return new Intl.DateTimeFormat('en-US', {
 			year: 'numeric',

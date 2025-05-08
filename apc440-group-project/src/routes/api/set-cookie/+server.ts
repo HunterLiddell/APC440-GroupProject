@@ -4,7 +4,7 @@ import type { RequestHandler } from "@sveltejs/kit";
 export const POST: RequestHandler = async ({ request, cookies, url }) => {
 
   const {token} = await request.json();
-  console.log(token);
+  
   const cookie = cookies.get('session_id');
   if (cookie) {
     return new Response('Cookie already exists', { status: 400 });
