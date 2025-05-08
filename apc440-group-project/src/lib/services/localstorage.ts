@@ -23,11 +23,11 @@ export function getLocalstorageCart(): LineItem[] {
 	}
 }
 
-export const localstorage = {
-	saveCart: debounce(saveCart, 1000),
-}
+// export const localstorage = {
+// 	saveCart: debounce(saveCart, 1000),
+// }
 
-function saveCart(items: LineItem[]) {
+export function saveCartToStorage(items: LineItem[]) {
 	if (typeof localStorage === 'undefined') return;
 	localStorage.setItem(CART_KEY, JSON.stringify(items));
 }

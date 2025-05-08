@@ -106,7 +106,7 @@
 			this.#lineItems.forEach((item) => {
 				items.push(item);
 			});
-			localstorage.saveCart(items);
+			saveCartToStorage(items);
 			const user = await fetchUserFromCookie();
 			if (user) updateCachedCart(user.id, items);
 		};
@@ -124,9 +124,9 @@
 	import { on } from 'svelte/events';
 	import { onDestroy, onMount } from 'svelte';
 	import Button from '../Button.svelte';
-	import { localstorage } from '$lib/services/localstorage';
 	import { updateCachedCart, type LineItem } from '$lib/services/db/cart';
 	import { fetchUserFromCookie } from '$lib/services/userAuth';
+	import { saveCartToStorage } from '$lib/services/localstorage';
 
 	let activeCloseAnimation = $state(false);
 

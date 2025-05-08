@@ -28,6 +28,7 @@ export interface Order {
 }
 
 export const purchaseOrder = async (order: Order) => {
+    console.log("UMMM", order)
     const db = getFirestore();
     const orderRef = doc(collection(db, 'orders'));
     await setDoc(orderRef, order);

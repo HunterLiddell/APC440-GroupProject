@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 
 	onMount(async () => {
-		const user = await fetchUserFromCookie();
+		user = await fetchUserFromCookie();
 		const orderId = page.url.pathname.split('/')[2];
 
 		// Fetch the order details from the database using the orderId

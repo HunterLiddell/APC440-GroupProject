@@ -1,4 +1,4 @@
-import {  doc, getDoc, getFirestore, setDoc, Timestamp } from "firebase/firestore"
+import {  deleteDoc, doc, getDoc, getFirestore, setDoc, Timestamp } from "firebase/firestore"
 import type { MenuItem } from "./menu-items";
 export interface LineItem extends MenuItem {
 		quantity: number;
@@ -36,4 +36,10 @@ export const updateCachedCart = async (userId: string, items: LineItem[]) => {
     };
 
     await setDoc(cartRef, cartData);
+}
+
+export const deleteCachedCart = async (userId: string) => {
+    const db = getFirestore();
+    const cartRef = doc(db, "carts", userId);
+    await deleteDoc(cartRef);
 }

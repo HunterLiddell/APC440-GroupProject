@@ -1,19 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
-	import { firebaseBrowserApp } from '$lib/services/auth/firebase';
+	import { deleteCachedCart } from '$lib/services/db/cart';
 	import type { MenuItem } from '$lib/services/db/menu-items';
 	import { purchaseOrder, type Address, type Order } from '$lib/services/db/orders';
 	import type { UserData } from '$lib/services/db/user';
 	import { fetchUserFromCookie } from '$lib/services/userAuth';
 	import { cart } from '$lib/ui/cart/Cart.svelte';
 	import { Timestamp } from 'firebase/firestore';
-	import { getContext, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	let user: UserData = $state(null);
 
 	onMount(async () => {
-		const user = await fetchUserFromCookie();
+		user = await fetchUserFromCookie();
 
 		if (!user) {
 			goto('/login?redirect=/checkout');
@@ -109,7 +108,11 @@
 			};
 
 			const id = await purchaseOrder(order);
-			goto(`/receipt/${id}`);
+			console.log(id);
+			await goto(`/receipt/${id}`);
+
+			cart.clear();
+			await deleteCachedCart(user?.id);
 		}
 	}
 </script>
@@ -382,7 +385,7 @@
 			</div>
 		{/each}
 		<hr class="my-4 border-orange-300" />
-		<p class="text-lg font-semibold">Total: ${cart.subtotal}</p>
+		<p class="text-lg font-semibold">Total: ${cart.subtotal.toFixed(2)}</p>
 	</div>
 </div>
 
